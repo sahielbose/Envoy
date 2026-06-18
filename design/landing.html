@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Envoy — Get in front of your dream company</title>
+<meta name="description" content="Envoy is your AI career super-connector. It finds the roles you deserve, maps the right people, drafts outreach that sounds like you, and gets you in the door.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ENVOY — tokens
+   (Faithful to the Perfectly aesthetic: warm cream, editorial
+   serif, espresso buttons, soft pills, dreamy gradient art.)
+   ============================================================ */
+:root{
+  --bg:#F4EEE5;
+  --bg-alt:#EFE7DB;
+  --ink:#2B2117;
+  --ink-soft:#6E665A;
+  --ink-faint:#A89E8D;
+  --surface:#ECE4D7;
+  --surface-2:#E7DECF;
+  --cream:#F7F3EB;
+  --line:rgba(43,33,23,.10);
+  --line-2:rgba(43,33,23,.06);
+
+  --violet:#A99BD9; --lilac:#C9BCEA; --pink:#E6B6C8;
+  --amber:#E7B45C; --gold:#F0CE84;
+  --sage:#9FB587; --teal:#7FA9A0;
+  --rose:#E0A6A0; --peach:#F2C7A8;
+
+  --maxw:1180px;
+  --radius:22px;
+  --radius-sm:13px;
+  --btn-radius:11px;
+
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.6;
+  font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+button{font-family:inherit}
+a{color:inherit;text-decoration:none}
+
+/* typography helpers */
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1.05}
+.eyebrow{
+  display:inline-block;background:var(--surface);color:var(--ink);
+  font-size:13.5px;font-weight:500;letter-spacing:.01em;
+  padding:7px 15px;border-radius:999px;border:1px solid var(--line-2);
+}
+.muted{color:var(--ink-soft)}
+.faint{color:var(--ink-faint)}
+
+.container{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+.section{padding:clamp(74px,11vw,128px) 0}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--ink);color:var(--cream);
+  font-size:15px;font-weight:500;letter-spacing:.005em;
+  padding:13px 22px;border-radius:var(--btn-radius);border:1px solid var(--ink);
+  cursor:pointer;transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px -12px rgba(43,33,23,.5);background:#37291b}
+.btn--ghost{
+  background:var(--surface);color:var(--ink);border:1px solid var(--line);
+  padding:11px 18px;font-size:14px;
+}
+.btn--ghost:hover{background:var(--surface-2);box-shadow:none;transform:none}
+.btn:focus-visible,.appnav button:focus-visible,.proc__item:focus-visible,.faq__q:focus-visible,
+.urlpill:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+/* ============================================================ NAV */
+.nav{position:sticky;top:0;z-index:50;background:rgba(244,238,229,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-2)}
+.nav__inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:68px}
+.nav__logo{grid-column:2;font-family:var(--serif);font-size:25px;font-weight:500;letter-spacing:-.015em}
+.nav__right{grid-column:3;justify-self:end;display:flex;gap:10px;align-items:center}
+
+/* ============================================================ HERO */
+.hero{text-align:center;padding-top:clamp(40px,7vw,76px);padding-bottom:clamp(40px,6vw,60px)}
+.hero h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(40px,6.6vw,74px);line-height:1.02;letter-spacing:-.02em;
+  margin:22px auto 0;max-width:15ch;
+}
+.hero__sub{max-width:600px;margin:22px auto 0;color:var(--ink-soft);font-size:clamp(16px,1.6vw,19px)}
+.hero__cta{margin-top:30px}
+
+/* ---- interactive app preview (replaces hero video) ---- */
+.appwrap{margin:clamp(44px,6vw,68px) auto 0;max-width:1000px;position:relative}
+.appwin{
+  position:relative;background:#FBF8F2;border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden;text-align:left;
+  box-shadow:0 40px 90px -50px rgba(43,33,23,.55),0 2px 0 rgba(255,255,255,.6) inset;
+}
+.appwin__bar{
+  display:flex;align-items:center;gap:14px;
+  padding:13px 16px;border-bottom:1px solid var(--line-2);
+  background:linear-gradient(#FCFAF5,#F7F2EA);
+}
+.dots{display:flex;gap:7px}
+.dots span{width:11px;height:11px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line-2)}
+.dots span:nth-child(1){background:#E5B7AC}.dots span:nth-child(2){background:#EBD09A}.dots span:nth-child(3){background:#AFC2A1}
+.urlpill{
+  margin:0 auto;background:var(--bg);border:1px solid var(--line-2);
+  color:var(--ink-soft);font-size:12.5px;letter-spacing:.02em;
+  padding:6px 16px;border-radius:999px;display:flex;align-items:center;gap:7px;
+}
+.urlpill svg{width:12px;height:12px;opacity:.6}
+.me{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 30% 25%,var(--lilac),var(--violet) 70%);flex:0 0 auto;box-shadow:0 0 0 1px var(--line-2)}
+
+.appwin__body{display:grid;grid-template-columns:188px 1fr;min-height:438px}
+.appnav{padding:14px 12px;border-right:1px solid var(--line-2);display:flex;flex-direction:column;gap:3px;background:#FAF6EF}
+.appnav button{
+  display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+  background:none;border:0;cursor:pointer;color:var(--ink-soft);
+  font-size:14px;font-weight:450;padding:10px 12px;border-radius:10px;transition:background .18s,color .18s;
+}
+.appnav button svg{width:17px;height:17px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.6}
+.appnav button:hover{background:var(--bg);color:var(--ink)}
+.appnav button.is-active{background:var(--ink);color:var(--cream)}
+.appnav__tag{margin-top:auto;font-size:11px;color:var(--ink-faint);padding:10px 12px 4px;letter-spacing:.04em;text-transform:uppercase}
+
+.appmain{padding:22px 24px;position:relative;min-width:0}
+.panel{display:none;animation:fade .3s ease}
+.panel.is-active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.panel__head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;gap:10px}
+.panel__title{font-family:var(--serif);font-size:21px;font-weight:500}
+.panel__meta{font-size:12.5px;color:var(--ink-faint)}
+
+/* role cards */
+.role{display:flex;gap:14px;align-items:flex-start;padding:14px;border:1px solid var(--line-2);border-radius:14px;background:#fff;margin-bottom:11px;transition:box-shadow .2s,transform .2s}
+.role:hover{box-shadow:0 14px 30px -22px rgba(43,33,23,.5);transform:translateY(-1px)}
+.role__logo{width:42px;height:42px;border-radius:11px;flex:0 0 auto;display:grid;place-items:center;color:#fff;font-family:var(--serif);font-size:18px;font-weight:600}
+.role__body{flex:1;min-width:0}
+.role__title{font-weight:550;font-size:15px}
+.role__sub{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+.role__why{font-size:12.5px;color:var(--ink-soft);margin-top:7px;line-height:1.45}
+.role__tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:11px;color:var(--ink-soft);background:var(--bg);border:1px solid var(--line-2);padding:3px 9px;border-radius:999px}
+.ring{--p:90;width:46px;height:46px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
+  background:conic-gradient(var(--ringc,var(--sage)) calc(var(--p)*1%),var(--surface) 0)}
+.ring::after{content:"";position:absolute;width:36px;height:36px;border-radius:50%;background:#fff}
+.ring b{position:relative;font-size:12px;font-weight:600;font-family:var(--sans)}
+.ringwrap{position:relative;display:grid;place-items:center}
+.ringwrap small{font-size:10px;color:var(--ink-faint);margin-top:3px}
+
+/* chat */
+.bubbles{display:flex;flex-direction:column;gap:10px}
+.bub{max-width:84%;padding:11px 14px;border-radius:14px;font-size:13.5px;line-height:1.5}
+.bub--me{align-self:flex-end;background:var(--ink);color:var(--cream);border-bottom-right-radius:5px}
+.bub--ai{align-self:flex-start;background:#fff;border:1px solid var(--line-2);border-bottom-left-radius:5px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.chip{font-size:12px;background:var(--bg);border:1px solid var(--line-2);padding:6px 11px;border-radius:999px;display:flex;align-items:center;gap:7px}
+.chip i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.composer{margin-top:14px;display:flex;gap:9px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:8px 8px 8px 14px;background:#fff;opacity:.85}
+.composer input{flex:1;border:0;outline:0;font-family:inherit;font-size:13.5px;color:var(--ink-soft);background:transparent}
+.composer .send{width:34px;height:34px;border-radius:9px;background:var(--ink);display:grid;place-items:center;flex:0 0 auto}
+.composer .send svg{width:15px;height:15px;stroke:var(--cream);fill:none;stroke-width:1.8}
+
+/* outreach */
+.draft{border:1px solid var(--line-2);border-radius:14px;background:#fff;overflow:hidden}
+.draft__top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 15px;border-bottom:1px solid var(--line-2);flex-wrap:wrap}
+.tones{display:flex;gap:6px}
+.tone{font-size:11.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line-2);background:var(--bg);color:var(--ink-soft);cursor:pointer}
+.tone.is-active{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.draft__field{padding:11px 15px;border-bottom:1px solid var(--line-2);font-size:13px}
+.draft__field span{color:var(--ink-faint);margin-right:8px}
+.draft__body{padding:14px 15px;font-size:13px;color:var(--ink-soft);line-height:1.6}
+.draft__actions{display:flex;gap:9px;align-items:center;padding:13px 15px;flex-wrap:wrap}
+.note{font-size:11.5px;color:var(--ink-faint);display:flex;align-items:center;gap:6px;margin-top:11px}
+.note svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.6}
+
+/* tracker */
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.col__h{font-size:12px;color:var(--ink-soft);font-weight:550;margin-bottom:9px;display:flex;justify-content:space-between}
+.col__h em{font-style:normal;color:var(--ink-faint);font-weight:400}
+.tcard{background:#fff;border:1px solid var(--line-2);border-radius:11px;padding:10px;margin-bottom:8px}
+.tcard b{font-size:12.5px;font-weight:550;display:block}
+.tcard small{font-size:11px;color:var(--ink-soft)}
+.tcard .dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px}
+
+/* profile */
+.prof{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.prof__av{width:60px;height:60px;border-radius:16px;background:radial-gradient(circle at 30% 25%,var(--gold),var(--amber) 75%);flex:0 0 auto}
+.prof h4{margin:0;font-family:var(--serif);font-size:19px;font-weight:550}
+.prof p{margin:3px 0 0;font-size:13px;color:var(--ink-soft)}
+.skills{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+.skill{font-size:11.5px;background:var(--bg);border:1px solid var(--line-2);padding:5px 11px;border-radius:999px}
+.toggle{margin-top:18px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line-2);border-radius:12px;padding:12px 14px;background:#fff;width:100%}
+.toggle small{display:block;color:var(--ink-soft);font-size:11.5px;margin-top:2px}
+.sw{width:42px;height:24px;border-radius:999px;background:var(--sage);position:relative;flex:0 0 auto}
+.sw::after{content:"";position:absolute;top:3px;left:21px;width:18px;height:18px;border-radius:50%;background:#fff}
+
+.preview-flag{
+  position:absolute;top:-12px;right:18px;z-index:2;
+  background:var(--ink);color:var(--cream);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:6px 13px;border-radius:999px;box-shadow:0 8px 20px -10px rgba(43,33,23,.6)
+}
+
+/* ============================================================ LOGO STRIP */
+.logos{padding:34px 0 8px}
+.logos__row{display:flex;align-items:center;gap:clamp(20px,4vw,52px);flex-wrap:wrap;justify-content:center}
+.logos__label{font-size:13px;color:var(--ink-faint);max-width:180px;line-height:1.35}
+.wm{display:flex;align-items:center;gap:9px;color:#9a8f7e;font-weight:600;font-size:18px;letter-spacing:-.01em;opacity:.78}
+.wm svg{width:19px;height:19px;fill:currentColor}
+
+/* ============================================================ PROCESS */
+.proc__head{text-align:center;max-width:640px;margin:0 auto}
+.proc__head h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.4vw,50px);margin:16px 0 0;letter-spacing:-.02em}
+.proc__head p{color:var(--ink-soft);margin:16px auto 0;max-width:520px}
+.proc__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center;margin-top:clamp(40px,6vw,64px)}
+.proc__list{display:flex;flex-direction:column;gap:6px}
+.proc__item{
+  position:relative;text-align:left;background:none;border:0;cursor:pointer;
+  padding:18px 22px;border-radius:16px;transition:background .25s;color:var(--ink-faint);
+}
+.proc__item .w{font-family:var(--serif);font-size:clamp(26px,3.4vw,40px);font-weight:400;letter-spacing:-.02em;transition:color .25s}
+.proc__item .num{font-size:13px;vertical-align:super;margin-left:8px;font-family:var(--sans);color:var(--ink-faint)}
+.proc__item:hover .w{color:var(--ink-soft)}
+.proc__item.is-active{background:rgba(43,33,23,.045)}
+.proc__item.is-active .w{color:var(--ink)}
+.proc__media{position:relative}
+.art{aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;position:relative;box-shadow:0 30px 70px -50px rgba(43,33,23,.5)}
+.art-cap{margin-top:20px}
+.art-cap h3{margin:0;font-size:17px;font-weight:600}
+.art-cap p{margin:7px 0 0;color:var(--ink-soft);font-size:14.5px;line-height:1.55}
+.proc__panel{display:none}
+.proc__panel.is-active{display:block;animation:fade .35s ease}
+
+/* gradient art recipes (replace the original flower photos) */
+.grain::before{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.art--violet{background:
+  radial-gradient(60% 70% at 70% 30%,var(--pink) 0%,transparent 55%),
+  radial-gradient(70% 80% at 30% 75%,var(--violet) 0%,transparent 60%),
+  radial-gradient(120% 120% at 50% 50%,var(--lilac),#9285c4)}
+.art--amber{background:
+  radial-gradient(55% 65% at 65% 40%,#fff3d6 0%,transparent 55%),
+  radial-gradient(75% 85% at 35% 70%,var(--amber) 0%,transparent 60%),
+  radial-gradient(120% 120% at 50% 50%,var(--gold),#e6b65f)}
+.art--sage{background:
+  radial-gradient(55% 65% at 68% 38%,#f3e6b8 0%,transparent 52%),
+  radial-gradient(80% 90% at 30% 72%,var(--teal) 0%,transparent 60%),
+  radial-gradient(120% 120% at 50% 50%,var(--sage),#7c9a8e)}
+.art--rose{background:
+  radial-gradient(55% 65% at 64% 36%,#ffe3d2 0%,transparent 52%),
+  radial-gradient(80% 90% at 32% 74%,var(--rose) 0%,transparent 60%),
+  radial-gradient(120% 120% at 50% 50%,var(--peach),#dca59f)}
+.art--nebula{background:
+  radial-gradient(40% 60% at 60% 32%,#f0a25a 0%,transparent 50%),
+  radial-gradient(70% 80% at 28% 30%,#6fae9f 0%,transparent 55%),
+  radial-gradient(90% 90% at 75% 80%,#27566b 0%,transparent 60%),
+  linear-gradient(135deg,#3c6f76,#244a59)}
+
+/* ============================================================ TESTIMONIAL */
+.quote-card{position:relative;border-radius:28px;overflow:hidden;min-height:330px;display:flex;align-items:flex-end;padding:clamp(28px,5vw,56px)}
+.quote-card .layer{position:absolute;inset:0;z-index:0}
+.quote-card .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(30,22,14,.05),rgba(30,22,14,.62))}
+.quote-card .qc{position:relative;z-index:2;color:#fff;max-width:760px}
+.quote-card .mark{font-family:var(--serif);font-size:62px;line-height:0;opacity:.85;display:block;height:30px}
+.quote-card blockquote{font-family:var(--serif);font-weight:400;font-size:clamp(22px,3vw,34px);line-height:1.25;margin:20px 0 22px;letter-spacing:-.01em}
+.quote-card .by{font-weight:550;font-size:15px}
+.quote-card .by small{display:block;font-weight:400;opacity:.8;font-size:13px;margin-top:2px}
+
+/* ============================================================ SUCCESS */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.success h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.4vw,50px);letter-spacing:-.02em;margin:18px 0 0}
+.success__p{color:var(--ink-soft);margin-top:20px}
+.success__p p{margin:0 0 14px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.stat{background:var(--surface);border:1px solid var(--line-2);border-radius:18px;padding:24px 22px}
+.stat b{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,50px);letter-spacing:-.02em;display:block;line-height:1}
+.stat span{display:block;font-weight:550;font-size:14px;margin-top:14px}
+.stat small{display:block;color:var(--ink-soft);font-size:13px;margin-top:2px}
+.portrait{border-radius:26px;overflow:hidden;aspect-ratio:5/5.4;position:relative;box-shadow:0 30px 70px -50px rgba(43,33,23,.5)}
+.portrait .who{position:absolute;left:24px;bottom:22px;z-index:2;color:#fff}
+.portrait .who b{font-weight:550;font-size:16px}
+.portrait .who small{display:block;opacity:.85;font-size:13px}
+.portrait .avatar-xl{position:absolute;inset:0;display:grid;place-items:center}
+.portrait .avatar-xl span{font-family:var(--serif);font-size:64px;color:rgba(255,255,255,.9);font-weight:500}
+.portrait .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 45%,rgba(30,22,14,.5))}
+
+/* ============================================================ HOW WE WORK */
+.how__left h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.6vw,52px);letter-spacing:-.02em;margin:18px 0 0}
+.how__left p{color:var(--ink-soft);margin:18px 0 26px;max-width:380px}
+.steps{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:24px 0;border-top:1px solid var(--line)}
+.step:first-child{border-top:0}
+.step__n{font-family:var(--serif);font-size:18px;color:var(--ink-faint)}
+.step__h{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.step__h b{font-weight:550;font-size:16px}
+.minipill{font-size:11px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line-2);padding:3px 9px;border-radius:999px}
+.step p{margin:9px 0 0;color:var(--ink-soft);font-size:14px;line-height:1.55}
+
+/* ============================================================ RESULTS */
+.results__head{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:end}
+.results__head h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.6vw,52px);letter-spacing:-.02em;margin:16px 0 0}
+.results__head h2 .lt{color:var(--ink-faint)}
+.results__head p{color:var(--ink-soft);max-width:380px;justify-self:end}
+.results__card{margin-top:34px;border-radius:26px;overflow:hidden;position:relative;padding:clamp(34px,5vw,64px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,34px)}
+.glass{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(7px);border-radius:20px;padding:clamp(26px,4vw,46px);color:#fff;text-align:center}
+.glass b{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,58px);letter-spacing:-.02em;display:block;line-height:1}
+.glass span{display:block;margin-top:14px;font-size:14px;opacity:.92}
+
+/* ============================================================ WHY */
+.why__head{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:end}
+.why__head h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.4vw,50px);letter-spacing:-.02em;margin:16px 0 0;max-width:13ch}
+.why__head p{color:var(--ink-soft);max-width:380px;justify-self:end}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:38px}
+.tile{border-radius:20px;overflow:hidden}
+.tile .art{aspect-ratio:16/11;border-radius:20px;box-shadow:none}
+.tile p{margin:13px 2px 0;font-size:14px;font-weight:500}
+.tile small{display:block;color:var(--ink-soft);font-size:13px;font-weight:400;margin-top:3px}
+
+/* ============================================================ FAQ */
+.faq__head{text-align:center;max-width:640px;margin:0 auto 44px}
+.faq__head h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,4.6vw,52px);letter-spacing:-.02em;margin:16px 0 0}
+.faq__head h2 .lt{color:var(--ink-faint)}
+.faq__head p{color:var(--ink-soft);margin-top:14px}
+.faq{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:13px}
+.faq__item{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;overflow:hidden}
+.faq__q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  background:none;border:0;cursor:pointer;text-align:left;padding:21px 24px;font-size:16px;font-weight:500;color:var(--ink)}
+.faq__q .pm{flex:0 0 auto;width:22px;height:22px;position:relative;transition:transform .3s}
+.faq__q .pm::before,.faq__q .pm::after{content:"";position:absolute;background:var(--ink);border-radius:2px}
+.faq__q .pm::before{top:10px;left:3px;right:3px;height:2px}
+.faq__q .pm::after{left:10px;top:3px;bottom:3px;width:2px;transition:opacity .3s}
+.faq__item.open .pm::after{opacity:0}
+.faq__a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq__a p{margin:0;padding:0 24px 22px;color:var(--ink-soft);font-size:15px;line-height:1.6;max-width:62ch}
+
+/* ============================================================ FOOTER */
+.footer{background:var(--bg-alt);border-top:1px solid var(--line-2);text-align:center;padding:clamp(64px,9vw,108px) 0 36px}
+.footer__logo{font-family:var(--serif);font-size:clamp(40px,6vw,68px);font-weight:500;letter-spacing:-.02em}
+.footer__tag{color:var(--ink-soft);margin:10px 0 26px}
+.footer__legal{margin-top:48px;color:var(--ink-faint);font-size:13px;border-top:1px solid var(--line-2);padding-top:26px}
+
+/* ============================================================ REVEAL + RESPONSIVE */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .proc__grid,.split,.results__head,.results__card,.why__head{grid-template-columns:1fr}
+  .results__head p,.why__head p{justify-self:start}
+  .why__head h2{max-width:none}
+  .appwin__body{grid-template-columns:1fr}
+  .appnav{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line-2);gap:5px}
+  .appnav button{white-space:nowrap;flex:0 0 auto}
+  .appnav__tag{display:none}
+  .board{grid-template-columns:1fr 1fr}
+  .tiles{grid-template-columns:1fr}
+  .quote-card blockquote{font-size:24px}
+  .results__card{gap:14px}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .nav__inner{grid-template-columns:auto 1fr;height:60px}
+  .nav__logo{grid-column:1;justify-self:start;font-size:22px}
+  .nav__right{grid-column:2}
+  .nav__right .btn--ghost{display:none}
+  .stats,.glass+.glass,.results__card{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+  .board{grid-template-columns:1fr}
+  .proc__media .art{aspect-ratio:3/2}
+  .hero h1{font-size:38px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav">
+  <div class="container nav__inner">
+    <div class="nav__logo">Envoy</div>
+    <nav class="nav__right">
+      <a class="btn btn--ghost" href="#">Sign in</a>
+      <a class="btn" href="#">Get Started</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ===================== HERO ===================== -->
+<section class="hero container">
+  <span class="eyebrow">Now in early access</span>
+  <h1 class="serif">Get in front of your dream company</h1>
+  <p class="hero__sub">Envoy is your AI career super-connector. It finds the roles you deserve, maps the right people to reach, and drafts outreach that sounds like you — because most jobs are filled through referrals long before they're ever posted.</p>
+  <div class="hero__cta"><a class="btn" href="#">Get Started Now</a></div>
+
+  <!-- interactive stubbed app preview (replaces the marketing video) -->
+  <div class="appwrap reveal">
+    <span class="preview-flag">Interactive preview</span>
+    <div class="appwin" id="app">
+      <div class="appwin__bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="urlpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>app.envoy.so</div>
+        <div class="me"></div>
+      </div>
+      <div class="appwin__body">
+        <nav class="appnav" role="tablist" aria-label="Envoy app preview">
+          <button class="is-active" data-view="matches" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>Matches</button>
+          <button data-view="chat" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Chat</button>
+          <button data-view="outreach" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Outreach</button>
+          <button data-view="tracker" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="11" rx="1"/><rect x="17" y="4" width="4" height="16" rx="1"/></svg>Tracker</button>
+          <button data-view="profile" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>Profile</button>
+          <span class="appnav__tag">Demo data</span>
+        </nav>
+
+        <div class="appmain">
+          <!-- MATCHES -->
+          <section class="panel is-active" data-panel="matches" role="tabpanel">
+            <div class="panel__head"><span class="panel__title">12 new matches</span><span class="panel__meta">ranked for you · this week</span></div>
+
+            <div class="role">
+              <div class="role__logo" style="background:linear-gradient(135deg,#8a7fc0,#b9a9e6)">N</div>
+              <div class="role__body">
+                <div class="role__title">Senior Frontend Engineer</div>
+                <div class="role__sub">Northwind · Remote · Seed</div>
+                <div class="role__why">Your React + design-systems work maps directly onto their new customer-facing platform.</div>
+                <div class="role__tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Remote</span></div>
+              </div>
+              <div class="ringwrap"><div class="ring" style="--p:94;--ringc:#8a7fc0"><b>94</b></div><small>match</small></div>
+            </div>
+
+            <div class="role">
+              <div class="role__logo" style="background:linear-gradient(135deg,#d99f55,#efce86)">L</div>
+              <div class="role__body">
+                <div class="role__title">Product Designer</div>
+                <div class="role__sub">Lumen · New York · Series A</div>
+                <div class="role__why">Scaling their design team — your fintech background is exactly what they're after.</div>
+                <div class="role__tags"><span class="tag">Figma</span><span class="tag">Fintech</span><span class="tag">Hybrid</span></div>
+              </div>
+              <div class="ringwrap"><div class="ring" style="--p:89;--ringc:#d99f55"><b>89</b></div><small>match</small></div>
+            </div>
+
+            <div class="role">
+              <div class="role__logo" style="background:linear-gradient(135deg,#7c9a8e,#a7c0b3)">C</div>
+              <div class="role__body">
+                <div class="role__title">Full-Stack Engineer</div>
+                <div class="role__sub">Cobalt Labs · Remote · Seed</div>
+                <div class="role__why">Small, TypeScript-heavy team — close to the shape of your last role.</div>
+                <div class="role__tags"><span class="tag">Node</span><span class="tag">Postgres</span><span class="tag">Remote</span></div>
+              </div>
+              <div class="ringwrap"><div class="ring" style="--p:86;--ringc:#7c9a8e"><b>86</b></div><small>match</small></div>
+            </div>
+          </section>
+
+          <!-- CHAT -->
+          <section class="panel" data-panel="chat" role="tabpanel">
+            <div class="panel__head"><span class="panel__title">Chat with Envoy</span><span class="panel__meta">your career copilot</span></div>
+            <div class="bubbles">
+              <div class="bub bub--me">Find me senior frontend roles at seed-stage startups — remote is a plus.</div>
+              <div class="bub bub--ai">Found 12 strong matches. Here are the top picks — all remote-friendly, Seed–Series A, and a close fit for your React + design-systems background:
+                <div class="chips">
+                  <span class="chip"><i style="background:#8a7fc0"></i>Northwind · 94%</span>
+                  <span class="chip"><i style="background:#d99f55"></i>Lumen · 89%</span>
+                  <span class="chip"><i style="background:#7c9a8e"></i>Cobalt · 86%</span>
+                </div>
+              </div>
+              <div class="bub bub--ai">Want me to draft a warm intro to the hiring manager at Northwind? You'll approve it before anything sends.</div>
+            </div>
+            <div class="composer"><input placeholder="Message Envoy…" aria-label="Message Envoy (preview)" disabled>
+              <span class="send"><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></span></div>
+          </section>
+
+          <!-- OUTREACH -->
+          <section class="panel" data-panel="outreach" role="tabpanel">
+            <div class="panel__head"><span class="panel__title">Draft · intro to Northwind</span><span class="panel__meta">review before sending</span></div>
+            <div class="draft">
+              <div class="draft__top">
+                <div class="tones">
+                  <button class="tone is-active">Warm</button>
+                  <button class="tone">Direct</button>
+                  <button class="tone">Brief</button>
+                </div>
+                <span class="panel__meta">sounds like you</span>
+              </div>
+              <div class="draft__field"><span>To</span>Priya — Engineering Manager, Northwind</div>
+              <div class="draft__field"><span>Subject</span>Loved what Northwind is building</div>
+              <div class="draft__body">Hi Priya — I came across Northwind's new customer platform and it's the kind of problem I'd jump at. I've spent the last three years building React design systems at scale, most recently shipping a component library used across a 40-person product org. Would you be open to a quick chat about the frontend role on your team? Happy to share a couple of things I'd dig into first.</div>
+              <div class="draft__actions">
+                <button class="btn">Approve &amp; copy</button>
+                <button class="btn btn--ghost">Regenerate</button>
+              </div>
+            </div>
+            <div class="note"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Envoy never sends anything without your approval.</div>
+          </section>
+
+          <!-- TRACKER -->
+          <section class="panel" data-panel="tracker" role="tabpanel">
+            <div class="panel__head"><span class="panel__title">Your pipeline</span><span class="panel__meta">5 active</span></div>
+            <div class="board">
+              <div><div class="col__h">Saved <em>2</em></div>
+                <div class="tcard"><b>Cobalt Labs</b><small><span class="dot" style="background:#7c9a8e"></span>Full-Stack Eng</small></div>
+                <div class="tcard"><b>Fathom</b><small><span class="dot" style="background:#c98f86"></span>Founding Eng</small></div>
+              </div>
+              <div><div class="col__h">Outreach <em>1</em></div>
+                <div class="tcard"><b>Northwind</b><small><span class="dot" style="background:#8a7fc0"></span>Sent 2d ago</small></div>
+              </div>
+              <div><div class="col__h">Interview <em>1</em></div>
+                <div class="tcard"><b>Lumen</b><small><span class="dot" style="background:#d99f55"></span>Round 2 · Thu</small></div>
+              </div>
+              <div><div class="col__h">Offer <em>1</em></div>
+                <div class="tcard"><b>Drift House</b><small><span class="dot" style="background:#9aab6f"></span>Reviewing</small></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- PROFILE -->
+          <section class="panel" data-panel="profile" role="tabpanel">
+            <div class="panel__head"><span class="panel__title">Your profile</span><span class="panel__meta">built from your résumé</span></div>
+            <div class="prof">
+              <div class="prof__av"></div>
+              <div style="flex:1;min-width:0">
+                <h4>Senior Frontend Engineer</h4>
+                <p>React · TypeScript · Design Systems · 6 yrs · Remote-first</p>
+                <div class="skills">
+                  <span class="skill">React</span><span class="skill">TypeScript</span><span class="skill">Design systems</span>
+                  <span class="skill">Accessibility</span><span class="skill">0→1 product</span>
+                </div>
+              </div>
+            </div>
+            <div class="toggle">
+              <div><b style="font-size:14px">Get discovered</b><small>Let vetted teams reach out to you. You stay in control.</small></div>
+              <span class="sw"></span>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOGO STRIP ===================== -->
+<section class="logos container reveal">
+  <div class="logos__row">
+    <span class="logos__label">Job seekers using Envoy have landed at</span>
+    <span class="wm"><svg viewBox="0 0 24 24"><path d="M3 21 12 3l9 18z"/></svg>Northwind</span>
+    <span class="wm"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.5 4.5L18 21l-6-4-6 4 1.5-7L2 9.5 9 9z"/></svg>Lumen</span>
+    <span class="wm"><svg viewBox="0 0 24 24"><path d="M12 2 22 8v8l-10 6L2 16V8z"/></svg>Cobalt</span>
+    <span class="wm"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>Fathom</span>
+  </div>
+</section>
+
+<!-- ===================== PROCESS ===================== -->
+<section class="section container reveal" id="how">
+  <div class="proc__head">
+    <span class="eyebrow">How it works</span>
+    <h2>Envoy is your AI career super-connector</h2>
+    <p>It learns where you shine, finds the roles you deserve, maps who to reach, and prepares you for every round — improving with everything you tell it.</p>
+  </div>
+
+  <div class="proc__grid">
+    <div class="proc__list" role="tablist" aria-label="How Envoy works">
+      <button class="proc__item is-active" data-step="0" role="tab" aria-selected="true"><span class="w">Profile</span><span class="num">01</span></button>
+      <button class="proc__item" data-step="1" role="tab" aria-selected="false"><span class="w">Match</span><span class="num">02</span></button>
+      <button class="proc__item" data-step="2" role="tab" aria-selected="false"><span class="w">Connect</span><span class="num">03</span></button>
+      <button class="proc__item" data-step="3" role="tab" aria-selected="false"><span class="w">Prepare</span><span class="num">04</span></button>
+    </div>
+
+    <div class="proc__media">
+      <div class="proc__panel is-active" data-step="0">
+        <div class="art art--violet grain" aria-hidden="true"></div>
+        <div class="art-cap"><h3>Profile</h3><p>Drop your résumé and LinkedIn. Envoy does its homework and builds a picture of where you stand out — no rigid forms.</p></div>
+      </div>
+      <div class="proc__panel" data-step="1">
+        <div class="art art--amber grain" aria-hidden="true"></div>
+        <div class="art-cap"><h3>Match</h3><p>Built on the same recommendation systems that power the world's biggest platforms — Envoy surfaces the roles you deserve and tells you exactly why each one fits.</p></div>
+      </div>
+      <div class="proc__panel" data-step="2">
+        <div class="art art--sage grain" aria-hidden="true"></div>
+        <div class="art-cap"><h3>Connect</h3><p>Envoy maps the right people to reach and drafts warm, personal outreach that sounds like you. Nothing sends without your approval.</p></div>
+      </div>
+      <div class="proc__panel" data-step="3">
+        <div class="art art--rose grain" aria-hidden="true"></div>
+        <div class="art-cap"><h3>Prepare</h3><p>Walk into every round with a dossier on the company and your interviewers, the questions they'll likely ask, and the smart ones to ask back.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIAL ===================== -->
+<section class="section container reveal" style="padding-top:0">
+  <div class="quote-card">
+    <div class="layer art--rose grain" aria-hidden="true"></div>
+    <div class="scrim"></div>
+    <div class="qc">
+      <span class="mark">“</span>
+      <blockquote>I'd been applying into the void for months. Envoy got me three warm intros in a single week — I start at the company I actually wanted on Monday.</blockquote>
+      <div class="by">Maya R.<small>Senior Product Designer</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SUCCESS ===================== -->
+<section class="section container reveal">
+  <div class="split success">
+    <div>
+      <span class="eyebrow">Success stories</span>
+      <h2 class="serif">3 warm intros in the first week</h2>
+      <div class="success__p">
+        <p>Maya had spent four months applying cold — résumés into a black hole, no replies, no momentum.</p>
+        <p>A week after starting with Envoy, she had three warm introductions to hiring managers at companies on her list, plus tailored notes for each conversation.</p>
+        <p>Two weeks later, she signed an offer.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>5x</b><span>More replies</span><small>vs. cold applications</small></div>
+        <div class="stat"><b>2 wks</b><span>Intro to offer</span><small>start to finish</small></div>
+      </div>
+    </div>
+    <div class="portrait">
+      <div class="layer art--amber grain" aria-hidden="true" style="position:absolute;inset:0"></div>
+      <div class="avatar-xl"><span>M</span></div>
+      <div class="scrim"></div>
+      <div class="who"><b>Maya R.</b><small>Senior Product Designer</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW WE WORK ===================== -->
+<section class="section container reveal">
+  <div class="split" style="align-items:start">
+    <div class="how__left">
+      <span class="eyebrow">Getting started</span>
+      <h2 class="serif">Set it up once. Envoy runs your search.</h2>
+      <p>Spend a few minutes a week. Envoy does the hunting, the research, and the drafting — you make the calls.</p>
+      <a class="btn" href="#">Get Started</a>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step__n">01</div>
+        <div>
+          <div class="step__h"><b>Set up your profile</b><span class="minipill">Under 10 min</span><span class="minipill">Day 1</span></div>
+          <p>Upload your résumé and LinkedIn and set your targets. Envoy builds your profile and surfaces your first matches the same day.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__n">02</div>
+        <div>
+          <div class="step__h"><b>Get matched &amp; connected</b><span class="minipill">Week 1</span><span class="minipill">~20 min/wk</span></div>
+          <p>Review the roles worth your time, approve the outreach Envoy drafts, and watch the replies start coming in.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__n">03</div>
+        <div>
+          <div class="step__h"><b>Land the offer</b><span class="minipill">The goal</span><span class="minipill">~15 min/wk</span></div>
+          <p>Prep for every round with company and interviewer dossiers, and track each application all the way to signed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESULTS ===================== -->
+<section class="section container reveal">
+  <div class="results__head">
+    <div>
+      <span class="eyebrow">Why it works</span>
+      <h2 class="serif">Faster, Warmer, <span class="lt">Smarter</span></h2>
+    </div>
+    <p>Envoy is built on the same recommendation systems behind the world's biggest platforms — pointed at your career instead of your feed.</p>
+  </div>
+  <div class="results__card art--nebula grain">
+    <div class="glass"><b>5x</b><span>More replies than cold applications</span></div>
+    <div class="glass"><b>~80%</b><span>Of roles filled through referrals before they're posted</span></div>
+  </div>
+</section>
+
+<!-- ===================== WHY / MISSION ===================== -->
+<section class="section container reveal">
+  <div class="why__head">
+    <div>
+      <span class="eyebrow">Why Envoy</span>
+      <h2 class="serif">The hidden job market shouldn't stay hidden from you</h2>
+    </div>
+    <p>Referrals and warm intros decide most roles before a listing ever appears. Envoy gives every job seeker the network, research, and polish that used to be reserved for the well-connected.</p>
+  </div>
+  <div class="tiles">
+    <div class="tile"><div class="art art--violet grain" aria-hidden="true"></div><p>Maps your way in<small>The right people at every company on your list.</small></p></div>
+    <div class="tile"><div class="art art--sage grain" aria-hidden="true"></div><p>Drafts your outreach<small>Personal, never spammy — and always yours to approve.</small></p></div>
+    <div class="tile"><div class="art art--amber grain" aria-hidden="true"></div><p>Preps every round<small>Know the company and your interviewers cold.</small></p></div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="section container reveal">
+  <div class="faq__head">
+    <span class="eyebrow">FAQ</span>
+    <h2 class="serif">We put <span class="lt">you</span> first</h2>
+    <p>Or start free and see it in action.</p>
+  </div>
+  <div class="faq">
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">How does Envoy work?<span class="pm"></span></button>
+      <div class="faq__a"><p>Drop your résumé and LinkedIn and tell Envoy what you're after. It finds matching roles, maps who to contact, drafts outreach you approve, researches each company before your interviews, and tracks every application in one place.</p></div>
+    </div>
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">Does Envoy apply to jobs for me?<span class="pm"></span></button>
+      <div class="faq__a"><p>No. Envoy never auto-applies and never auto-sends. It drafts everything for you, and you review and approve each message before it goes out.</p></div>
+    </div>
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">Where do the job matches come from?<span class="pm"></span></button>
+      <div class="faq__a"><p>Envoy pulls from public job boards and company career pages, then ranks each role against your profile and explains, in plain language, why it fits and where the gaps are.</p></div>
+    </div>
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">Is my résumé and data private?<span class="pm"></span></button>
+      <div class="faq__a"><p>Yes. Your information is used only to power your own search. It's never sold or shared, and your "get discovered" profile is off by default.</p></div>
+    </div>
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">How much does it cost?<span class="pm"></span></button>
+      <div class="faq__a"><p>Envoy is free to start while we're in early access. Paid plans will come later — you'll always know before anything changes.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__logo">Envoy</div>
+    <p class="footer__tag">Get in front of your dream company</p>
+    <a class="btn" href="#">Get Started</a>
+    <div class="footer__legal container">© 2026 Envoy. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* ---- app preview: switch panels ---- */
+(function(){
+  var nav=document.querySelectorAll('.appnav button');
+  var panels=document.querySelectorAll('.panel');
+  nav.forEach(function(b){
+    b.addEventListener('click',function(){
+      nav.forEach(function(n){n.classList.remove('is-active');n.setAttribute('aria-selected','false')});
+      b.classList.add('is-active');b.setAttribute('aria-selected','true');
+      var v=b.getAttribute('data-view');
+      panels.forEach(function(p){p.classList.toggle('is-active',p.getAttribute('data-panel')===v)});
+    });
+  });
+  /* tone chips inside outreach (cosmetic) */
+  document.querySelectorAll('.tones .tone').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('.tones .tone').forEach(function(x){x.classList.remove('is-active')});
+      t.classList.add('is-active');
+    });
+  });
+})();
+
+/* ---- process tabs ---- */
+(function(){
+  var items=document.querySelectorAll('.proc__item');
+  var panels=document.querySelectorAll('.proc__panel');
+  items.forEach(function(it){
+    it.addEventListener('click',function(){
+      items.forEach(function(x){x.classList.remove('is-active');x.setAttribute('aria-selected','false')});
+      it.classList.add('is-active');it.setAttribute('aria-selected','true');
+      var s=it.getAttribute('data-step');
+      panels.forEach(function(p){p.classList.toggle('is-active',p.getAttribute('data-step')===s)});
+    });
+  });
+})();
+
+/* ---- FAQ accordion ---- */
+(function(){
+  document.querySelectorAll('.faq__item').forEach(function(item){
+    var q=item.querySelector('.faq__q'),a=item.querySelector('.faq__a');
+    q.addEventListener('click',function(){
+      var open=item.classList.toggle('open');
+      q.setAttribute('aria-expanded',open?'true':'false');
+      a.style.maxHeight=open?a.scrollHeight+'px':null;
+    });
+  });
+})();
+
+/* ---- scroll reveal ---- */
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver'in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+  },{threshold:.12});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
