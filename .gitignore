@@ -1,0 +1,28 @@
+# deps
+node_modules
+.pnp
+.pnp.js
+
+# next
+.next
+out
+build
+
+# env & secrets
+.env
+.env*.local
+.env.production
+
+# data / uploads (local mock storage)
+/.data
+/uploads
+
+# misc
+.DS_Store
+*.log
+coverage
+playwright-report
+test-results
+.vercel
+next-env.d.ts
+*.tsbuildinfo
