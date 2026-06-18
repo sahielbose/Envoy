@@ -1,13 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Envoy design tokens — mirrors design/landing.html.
+   Warm cream canvas, editorial serif, espresso buttons,
+   soft pills, dreamy gradient art.
+   ============================================================ */
 :root {
   color-scheme: light;
+
+  --bg: #f4eee5;
+  --bg-alt: #efe7db;
+  --ink: #2b2117;
+  --ink-soft: #6e665a;
+  --ink-faint: #a89e8d;
+  --surface: #ece4d7;
+  --surface-2: #e7decf;
+  --cream: #f7f3eb;
+  --line: rgba(43, 33, 23, 0.1);
+  --line-2: rgba(43, 33, 23, 0.06);
+
+  /* gradient accents */
+  --violet: #a99bd9;
+  --lilac: #c9bcea;
+  --pink: #e6b6c8;
+  --amber: #e7b45c;
+  --gold: #f0ce84;
+  --sage: #9fb587;
+  --teal: #7fa9a0;
+  --rose: #e0a6a0;
+  --peach: #f2c7a8;
+
+  --maxw: 1180px;
+  --radius: 22px;
+  --radius-sm: 13px;
+  --btn-radius: 11px;
+
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font-family: inherit;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
 }
