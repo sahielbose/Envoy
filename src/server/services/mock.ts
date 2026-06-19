@@ -168,7 +168,7 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
       };
     },
 
-    async draftOutreach({ profileId, target, channel }) {
+    async draftOutreach({ profileId, jobId, target, channel }) {
       const profile = await repositories.profiles.findById(profileId);
       const parsed = ProfileStructuredSchema.safeParse(profile?.structured);
       const headline = parsed.success ? parsed.data.headline : "an engineer";
@@ -192,6 +192,27 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
           body: `Hi — ${headline} here, strong in ${skill}. I'd love to be considered for your team. Open to a quick chat?`,
         },
       ];
+
+      // Persist as a draft for the outreach queue. DRAFT ONLY — this records
+      // content for the user to review; it never transmits anything.
+      const userId = profile?.userId;
+      if (userId) {
+        const existing = (await repositories.outreach.listByUser(userId)).find(
+          (o) => o.jobId === jobId && o.status === "draft",
+        );
+        if (existing) {
+          await repositories.outreach.update(existing.id, { drafts });
+        } else {
+          await repositories.outreach.create({
+            userId,
+            jobId,
+            target,
+            channel,
+            drafts,
+            status: "draft",
+          });
+        }
+      }
 
       return {
         drafts,
