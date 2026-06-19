@@ -1,3 +1,6 @@
+import { shouldMock } from "@/lib/env";
+import { ResendSender } from "./resend";
+
 export interface SendInput {
   to: string;
   subject?: string;
@@ -32,6 +35,8 @@ class StubGmailSender implements EmailSender {
 let cached: EmailSender | null = null;
 
 export function getEmailSender(): EmailSender {
-  if (!cached) cached = new StubGmailSender();
+  if (!cached) {
+    cached = shouldMock("email") ? new StubGmailSender() : new ResendSender();
+  }
   return cached;
 }
