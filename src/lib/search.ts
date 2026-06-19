@@ -1,3 +1,6 @@
+import { shouldMock } from "@/lib/env";
+import { ExaWebSearch } from "./exa";
+
 export interface SearchResult {
   title: string;
   url: string;
@@ -58,6 +61,12 @@ export class StubWebSearch implements WebSearch {
 let cached: WebSearch | null = null;
 
 export function getWebSearch(): WebSearch {
-  if (!cached) cached = new StubWebSearch();
+  if (!cached) {
+    if (shouldMock("search")) {
+      cached = new StubWebSearch();
+    } else {
+      cached = new ExaWebSearch();
+    }
+  }
   return cached;
 }
