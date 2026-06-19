@@ -9,7 +9,7 @@ export default function OnboardingPage() {
     <>
       <PageHeader
         title="Set up your profile"
-        subtitle="Step 1 · Upload your résumé and Envoy does its homework — no rigid forms."
+        subtitle="Upload your résumé, set your targets, and Envoy builds your profile — no rigid forms."
       />
       <OnboardingFlow />
     </>
