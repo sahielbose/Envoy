@@ -1,4 +1,4 @@
-import { shouldMock } from "@/lib/env";
+import { requireProvider, shouldMock } from "@/lib/env";
 import { getPrisma } from "@/server/db";
 import { fixtures } from "@/server/fixtures";
 import { MockStore, type MockData } from "./mock-store";
@@ -17,9 +17,12 @@ let cached: Repositories | null = null;
  */
 export function getRepositories(): Repositories {
   if (cached) return cached;
-  cached = shouldMock("db")
-    ? createMockRepositories(new MockStore().seed(fixtures))
-    : createPrismaRepositories(getPrisma());
+  if (shouldMock("db")) {
+    cached = createMockRepositories(new MockStore().seed(fixtures));
+  } else {
+    requireProvider("db");
+    cached = createPrismaRepositories(getPrisma());
+  }
   return cached;
 }
 
