@@ -4,6 +4,7 @@ import { runFindRoles } from "@/lib/matching/pipeline";
 import { generateTailored, putDoc, verifyTruthful } from "@/server/resume/tailor";
 import { buildDossier, likelyQuestions, questionsToAsk } from "@/server/research/dossier";
 import { ResearchCompanyOutput } from "@/server/tools/contracts";
+import { assertNoContactInfo } from "@/server/policy/pii";
 import type { ServiceDeps } from "./deps";
 import type { EnvoyServices } from "./types";
 
@@ -128,6 +129,7 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
         questionsToAsk: questionsToAsk(company),
         sources: results.map((r) => ({ title: r.title, url: r.url })),
       };
+      assertNoContactInfo(output, "research_company");
 
       // Cache on the Company for next time.
       await repositories.companies.upsert({
@@ -150,7 +152,7 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
           : /product|pm/i.test(title)
             ? "Head of Product"
             : "the team lead";
-      return {
+      const result = {
         targets: [
           {
             archetype: `Hiring manager (likely the ${manager})`,
@@ -166,6 +168,8 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
           },
         ],
       };
+      assertNoContactInfo(result, "map_contacts");
+      return result;
     },
 
     async draftOutreach({ profileId, jobId, target, channel }) {
