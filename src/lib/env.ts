@@ -16,13 +16,13 @@ const boolFromEnv = (defaultValue: boolean) =>
 
 /**
  * Envoy environment schema. Mock-first: the app runs with USE_MOCKS=true and
- * NO keys through Phases 1–19, so every provider secret is optional here. Real
+ * NO keys through Phases 1-19, so every provider secret is optional here. Real
  * adapters validate their own required keys when wired in Phase 20.
  */
 const EnvSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
 
-  // Master mock switch — keep true through Phases 1–19; flip per-provider in 20.
+  // Master mock switch, keep true through Phases 1-19; flip per-provider in 20.
   USE_MOCKS: boolFromEnv(true),
 
   // Core (optional in mock mode; needed once a real DB/auth runs locally)
@@ -30,7 +30,7 @@ const EnvSchema = z.object({
   NEXTAUTH_SECRET: z.string().optional(),
   NEXTAUTH_URL: z.string().optional(),
 
-  // Phase 20 — providers wired behind the same interfaces, gated by env.
+  // Phase 20, providers wired behind the same interfaces, gated by env.
   ANTHROPIC_API_KEY: z.string().optional(),
   VOYAGE_API_KEY: z.string().optional(),
   EXA_API_KEY: z.string().optional(),

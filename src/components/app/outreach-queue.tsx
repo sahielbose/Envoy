@@ -51,7 +51,7 @@ function DraftCard({
 
   function sendViaGmail() {
     const to = window.prompt(
-      "Recipient email (you provide this — Envoy never harvests contacts):",
+      "Recipient email (you provide this, Envoy never harvests contacts):",
     );
     if (to) onSend(item.id, toneIndex, to);
   }
@@ -118,7 +118,7 @@ function DraftCard({
       </div>
       {item.status === "approved" && !gmailConnected ? (
         <p className="note" style={{ margin: "0 15px 13px" }}>
-          Connect Gmail in settings to send — copy and open-in-mail need no setup.
+          Connect Gmail in settings to send, copy and open-in-mail need no setup.
         </p>
       ) : null}
     </div>

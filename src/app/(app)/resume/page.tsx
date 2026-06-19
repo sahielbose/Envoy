@@ -8,7 +8,7 @@ import { EmptyState } from "@/components/app/empty-state";
 import { ResumeStudio, type RoleOption } from "@/components/app/resume-studio";
 import { Button } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Résumé — Envoy" };
+export const metadata: Metadata = { title: "Résumé, Envoy" };
 
 export default async function ResumePage() {
   const session = await getSession();
@@ -25,7 +25,7 @@ export default async function ResumePage() {
         <EmptyState
           icon={FileText}
           title="No base résumé yet"
-          description="Upload a base résumé to get started. Envoy only rewords what's true — it never invents experience."
+          description="Upload a base résumé to get started. Envoy only rewords what's true, it never invents experience."
           action={<Button href="/onboarding">Set up your profile</Button>}
         />
       </>

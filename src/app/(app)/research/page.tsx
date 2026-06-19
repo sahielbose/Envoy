@@ -8,7 +8,7 @@ import { EmptyState } from "@/components/app/empty-state";
 import { ResearchView, type ResearchOption } from "@/components/app/research-view";
 import { Button } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Research — Envoy" };
+export const metadata: Metadata = { title: "Research, Envoy" };
 
 export default async function ResearchPage() {
   const session = await getSession();

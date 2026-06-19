@@ -20,7 +20,7 @@ export interface SendOutreachResult {
  * The single send gate. Sending requires, in order: explicit confirmation, an
  * owned outreach record, an APPROVED status, Gmail connected (opt-in), a
  * user-provided recipient, and a valid draft. Any failure returns without
- * calling the sender — so nothing transmits without explicit approval.
+ * calling the sender, so nothing transmits without explicit approval.
  */
 export async function sendOutreach(
   repos: Repositories,

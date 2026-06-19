@@ -54,7 +54,7 @@ function Draft({ output }: { output: unknown }) {
         {str(first.subject) ? <div style={{ marginTop: 4 }}>Subject: {str(first.subject)}</div> : null}
         <div style={{ marginTop: 6 }}>{str(first.body).slice(0, 160)}…</div>
         <div style={{ marginTop: 8, fontSize: 11.5, color: "var(--ink-faint)" }}>
-          Draft only — nothing sends until you approve.
+          Draft only, nothing sends until you approve.
         </div>
       </div>
       <Link href="/outreach" className="btn btn--ghost" style={{ alignSelf: "flex-start" }}>
@@ -96,7 +96,7 @@ function Contacts({ output }: { output: unknown }) {
           ))}
         </ul>
         <div style={{ marginTop: 8, fontSize: 11.5, color: "var(--ink-faint)" }}>
-          Roles + publicly-listed names only — never scraped contact info.
+          Roles + publicly-listed names only, never scraped contact info.
         </div>
       </div>
     </div>

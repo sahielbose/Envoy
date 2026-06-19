@@ -21,7 +21,7 @@ function toCoreMessages(messages: AgentMessage[]): CoreMessage[] {
   return out;
 }
 
-/** Real LLM provider — Anthropic Claude via the Vercel AI SDK. */
+/** Real LLM provider, Anthropic Claude via the Vercel AI SDK. */
 export class AnthropicLLMProvider implements LLMProvider {
   private readonly model;
 

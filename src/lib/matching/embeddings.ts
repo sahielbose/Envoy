@@ -9,7 +9,7 @@ export interface Embedder {
   embed(texts: string[]): Promise<number[][]>;
 }
 
-/** FNV-1a string hash → unsigned 32-bit. */
+/** FNV-1a string hash to unsigned 32-bit. */
 function hash(str: string): number {
   let h = 0x811c9dc5;
   for (let i = 0; i < str.length; i++) {
@@ -21,7 +21,7 @@ function hash(str: string): number {
 
 /**
  * Deterministic bag-of-tokens embedding: hashes tokens into a fixed-dim,
- * L2-normalized vector. Shared vocabulary (skills, titles) → higher cosine
+ * L2-normalized vector. Shared vocabulary (skills, titles) to higher cosine
  * similarity, which makes the mock pipeline behave like a real one.
  */
 export function embedText(text: string, dim = EMBED_DIM): number[] {

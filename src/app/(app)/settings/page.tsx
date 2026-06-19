@@ -4,7 +4,7 @@ import { getRepositories } from "@/server/repositories";
 import { PageHeader } from "@/components/app/page-header";
 import { SettingsForm, type SettingsState } from "@/components/app/settings-form";
 
-export const metadata: Metadata = { title: "Settings — Envoy" };
+export const metadata: Metadata = { title: "Settings, Envoy" };
 
 export default async function SettingsPage() {
   const session = await getSession();

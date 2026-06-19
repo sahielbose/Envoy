@@ -41,7 +41,7 @@ describe("draft_outreach is draft-only", () => {
   });
 });
 
-describe("send gate — nothing sends without explicit approval", () => {
+describe("send gate, nothing sends without explicit approval", () => {
   it("blocks an unapproved draft (and never calls the sender)", async () => {
     const { repositories } = createTestRepositories();
     const sender = new CountingSender();

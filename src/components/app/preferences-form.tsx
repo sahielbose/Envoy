@@ -113,7 +113,7 @@ export function PreferencesForm({
           onChange={(e) => set("workAuth", e.target.value || undefined)}
           placeholder="e.g. US citizen · needs sponsorship"
         />
-        <p className="hint">A preference field — not legal or immigration advice.</p>
+        <p className="hint">A preference field, not legal or immigration advice.</p>
       </div>
 
       <div className="field">

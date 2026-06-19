@@ -3,7 +3,7 @@ import type { SearchResult, WebSearch } from "./search";
 
 const EXA_URL = "https://api.exa.ai/search";
 
-/** Real web research — Exa (public web search with text contents). */
+/** Real web research, Exa (public web search with text contents). */
 export class ExaWebSearch implements WebSearch {
   constructor() {
     requireProvider("search");

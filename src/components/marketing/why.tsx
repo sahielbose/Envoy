@@ -9,7 +9,7 @@ const TILES: { variant: ArtVariant; title: string; body: string }[] = [
   {
     variant: "sage",
     title: "Drafts your outreach",
-    body: "Personal, never spammy — and always yours to approve.",
+    body: "Personal, never spammy, and always yours to approve.",
   },
   {
     variant: "amber",
@@ -18,7 +18,7 @@ const TILES: { variant: ArtVariant; title: string; body: string }[] = [
   },
 ];
 
-/** "Why Envoy" — mission heading + three gradient tiles. */
+/** "Why Envoy", mission heading + three gradient tiles. */
 export function Why() {
   return (
     <section className="section container">

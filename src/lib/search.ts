@@ -21,7 +21,7 @@ function subjectOf(query: string): string {
 
 /**
  * Deterministic stub returning public-style results (news, careers, blog,
- * about). Never returns private contact info — public web data only.
+ * about). Never returns private contact info, public web data only.
  */
 export class StubWebSearch implements WebSearch {
   async search(query: string, opts?: { limit?: number }): Promise<SearchResult[]> {
@@ -34,7 +34,7 @@ export class StubWebSearch implements WebSearch {
         snippet: `${subject} announced new funding to expand its product and team.`,
       },
       {
-        title: `${subject} — Careers`,
+        title: `${subject}, Careers`,
         url: `https://example.com/${slug}/careers`,
         snippet: `${subject} is hiring across engineering, design, and product.`,
       },
@@ -44,7 +44,7 @@ export class StubWebSearch implements WebSearch {
         snippet: `How ${subject} builds and ships its customer-facing platform.`,
       },
       {
-        title: `${subject} — About`,
+        title: `${subject}, About`,
         url: `https://example.com/${slug}/about`,
         snippet: `${subject} is a remote-friendly startup focused on its core product.`,
       },

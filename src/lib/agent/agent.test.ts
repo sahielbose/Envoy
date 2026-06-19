@@ -73,7 +73,7 @@ describe("agent tool-use loop", () => {
 });
 
 describe("guardrails", () => {
-  it("exposes only the eight safe tools — none that send/apply/submit", () => {
+  it("exposes only the eight safe tools, none that send/apply/submit", () => {
     expect([...TOOL_NAMES].sort()).toEqual([
       "build_profile",
       "draft_outreach",
@@ -102,7 +102,7 @@ describe("guardrails", () => {
     expect(draft).toBeDefined();
     const output = draft?.output as { drafts: unknown[]; rationale: string };
     expect(output.drafts.length).toBeGreaterThan(0);
-    // Output is content only — no transmission fields.
+    // Output is content only, no transmission fields.
     expect(Object.keys(output).sort()).toEqual(["drafts", "rationale"]);
     // Nothing was sent: the draft may be recorded, but none has a "sent" status.
     const records = await repositories.outreach.listByUser("demo-user");

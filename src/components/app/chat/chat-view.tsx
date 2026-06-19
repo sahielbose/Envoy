@@ -16,7 +16,7 @@ type ChatEvent =
 const WELCOME: ChatMessage = {
   id: "welcome",
   role: "assistant",
-  text: "Hi — I'm Envoy. I can find roles worth your time, map who to reach, draft outreach you approve, tailor your résumé per posting, and research companies before interviews. What would you like to start with?",
+  text: "Hi, I'm Envoy. I can find roles worth your time, map who to reach, draft outreach you approve, tailor your résumé per posting, and research companies before interviews. What would you like to start with?",
 };
 
 const SUGGESTED = [
@@ -135,7 +135,7 @@ export function ChatView() {
     } catch {
       patch(assistantId, (m) => ({
         ...m,
-        text: m.text || "Sorry — I couldn't reach the copilot. Try again.",
+        text: m.text || "Sorry, I couldn't reach the copilot. Try again.",
       }));
     } finally {
       patch(assistantId, (m) => ({ ...m, streaming: false }));

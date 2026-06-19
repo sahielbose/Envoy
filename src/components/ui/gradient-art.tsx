@@ -10,7 +10,7 @@ interface GradientArtProps extends ComponentPropsWithoutRef<"div"> {
 }
 
 /**
- * Dreamy gradient "art" block — Envoy's stand-in for photography. Decorative by
+ * Dreamy gradient "art" block, Envoy's stand-in for photography. Decorative by
  * default (aria-hidden). Mirrors the .art / .art--* recipes in landing.html.
  */
 export function GradientArt({

@@ -25,7 +25,7 @@ const ROWS: { key: keyof SettingsState; label: string; desc: string }[] = [
   {
     key: "gmailConnected",
     label: "Connect Gmail",
-    desc: "Send approved outreach via your Gmail — opt-in, and only per message you confirm.",
+    desc: "Send approved outreach via your Gmail, opt-in, and only per message you confirm.",
   },
 ];
 

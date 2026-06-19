@@ -49,7 +49,7 @@ function DiffView({ changes }: { changes: ResumeChange[] }) {
               <div className="diff__after">{c.after}</div>
             </>
           ) : (
-            <div className="diff__same">Kept verbatim — {c.after}</div>
+            <div className="diff__same">Kept verbatim, {c.after}</div>
           )}
         </div>
       ))}
@@ -113,7 +113,7 @@ export function ResumeStudio({ options }: { options: RoleOption[] }) {
         <>
           <div className="truthful-note">
             <Icon icon={ShieldCheck} size={14} />
-            Envoy only rewords what&apos;s true — every line traces to your base résumé. It never
+            Envoy only rewords what&apos;s true, every line traces to your base résumé. It never
             invents employers, titles, dates, or skills.
           </div>
           <p className="muted" style={{ fontSize: 13.5, marginBottom: 14 }}>

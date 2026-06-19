@@ -4,7 +4,7 @@ import { getRepositories } from "@/server/repositories";
 export const runtime = "nodejs";
 
 /**
- * Approval records the user's intent on a specific draft. It NEVER sends —
+ * Approval records the user's intent on a specific draft. It NEVER sends -
  * sending is a separate, explicitly-gated action (the Gmail adapter), per
  * message. The zero-risk defaults remain copy and open-in-mail.
  */

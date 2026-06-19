@@ -207,7 +207,7 @@ export function TrackerBoard({ items }: { items: TrackerItem[] }) {
                   <td>
                     {it.nextAction
                       ? `${it.nextAction.label}${it.nextAction.due ? ` · ${it.nextAction.due}` : ""}`
-                      : "—"}
+                      : "-"}
                   </td>
                 </tr>
               );

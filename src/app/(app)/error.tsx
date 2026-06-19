@@ -10,7 +10,7 @@ export default function AppError({ reset }: { error: Error & { digest?: string }
         <Icon icon={AlertTriangle} size={22} />
       </span>
       <h3 className="empty__title">Something went wrong</h3>
-      <p className="empty__desc">That didn&apos;t load — it&apos;s on us. Try again in a moment.</p>
+      <p className="empty__desc">That didn&apos;t load, it&apos;s on us. Try again in a moment.</p>
       <div className="empty__action">
         <button type="button" className="btn" onClick={() => reset()}>
           Try again

@@ -32,7 +32,7 @@ const ROLES: Role[] = [
     logo: "linear-gradient(135deg,#d99f55,#efce86)",
     title: "Product Designer",
     sub: "Lumen · New York · Series A",
-    why: "Scaling their design team — your fintech background is exactly what they're after.",
+    why: "Scaling their design team, your fintech background is exactly what they're after.",
     tags: ["Figma", "Fintech", "Hybrid"],
     score: 89,
     color: "#d99f55",
@@ -42,7 +42,7 @@ const ROLES: Role[] = [
     logo: "linear-gradient(135deg,#7c9a8e,#a7c0b3)",
     title: "Full-Stack Engineer",
     sub: "Cobalt Labs · Remote · Seed",
-    why: "Small, TypeScript-heavy team — close to the shape of your last role.",
+    why: "Small, TypeScript-heavy team, close to the shape of your last role.",
     tags: ["Node", "Postgres", "Remote"],
     score: 86,
     color: "#7c9a8e",
@@ -100,10 +100,10 @@ export function ChatPanel() {
       </div>
       <div className="bubbles">
         <div className="bub bub--me">
-          Find me senior frontend roles at seed-stage startups — remote is a plus.
+          Find me senior frontend roles at seed-stage startups, remote is a plus.
         </div>
         <div className="bub bub--ai">
-          Found 12 strong matches. Here are the top picks — all remote-friendly, Seed–Series A, and
+          Found 12 strong matches. Here are the top picks, all remote-friendly, Seed-Series A, and
           a close fit for your React + design-systems background:
           <div className="chips">
             <span className="chip">
@@ -162,13 +162,13 @@ export function OutreachPanel() {
           <span className="panel__meta">sounds like you</span>
         </div>
         <div className="draft__field">
-          <span>To</span>Priya — Engineering Manager, Northwind
+          <span>To</span>Priya, Engineering Manager, Northwind
         </div>
         <div className="draft__field">
           <span>Subject</span>Loved what Northwind is building
         </div>
         <div className="draft__body">
-          Hi Priya — I came across Northwind&apos;s new customer platform and it&apos;s the kind of
+          Hi Priya, I came across Northwind&apos;s new customer platform and it&apos;s the kind of
           problem I&apos;d jump at. I&apos;ve spent the last three years building React design
           systems at scale, most recently shipping a component library used across a 40-person
           product org. Would you be open to a quick chat about the frontend role on your team? Happy
@@ -247,7 +247,7 @@ export function TrackerPanel() {
   );
 }
 
-const SKILLS = ["React", "TypeScript", "Design systems", "Accessibility", "0→1 product"];
+const SKILLS = ["React", "TypeScript", "Design systems", "Accessibility", "0 to 1 product"];
 
 export function ProfilePanel() {
   return (

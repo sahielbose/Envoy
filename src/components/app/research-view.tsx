@@ -95,7 +95,7 @@ export function ResearchView({ options }: { options: ResearchOption[] }) {
 
       {result ? (
         <div className="dossier">
-          <Section title={`${result.dossier.company} — overview`}>
+          <Section title={`${result.dossier.company}, overview`}>
             <p className="muted" style={{ fontSize: 14, margin: 0 }}>
               {result.dossier.overview}
             </p>
@@ -137,7 +137,7 @@ export function ResearchView({ options }: { options: ResearchOption[] }) {
               ))}
             </div>
             <p className="muted" style={{ fontSize: 11.5, marginTop: 8 }}>
-              Built from public web sources only — never harvested private contact info.
+              Built from public web sources only, never harvested private contact info.
             </p>
           </Section>
         </div>

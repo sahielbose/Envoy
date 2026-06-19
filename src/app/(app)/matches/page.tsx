@@ -8,7 +8,7 @@ import { EmptyState } from "@/components/app/empty-state";
 import { MatchesList, type MatchItem } from "@/components/app/matches-list";
 import { Button } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Matches — Envoy" };
+export const metadata: Metadata = { title: "Matches, Envoy" };
 
 const asStringArray = (value: unknown): string[] =>
   Array.isArray(value) ? value.filter((x): x is string => typeof x === "string") : [];
@@ -32,7 +32,7 @@ export default async function MatchesPage() {
     );
   }
 
-  // Run the pipeline (retrieve → rerank → persist), then read the ranked matches.
+  // Run the pipeline (retrieve to rerank to persist), then read the ranked matches.
   await getServices().findRoles({ profileId: profile.id });
   const matches = (await repos.matches.listByProfile(profile.id)).filter(
     (m) => m.status !== "dismissed",

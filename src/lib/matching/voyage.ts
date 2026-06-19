@@ -4,7 +4,7 @@ import type { Embedder } from "./embeddings";
 const VOYAGE_URL = "https://api.voyageai.com/v1/embeddings";
 const MODEL = process.env.VOYAGE_MODEL ?? "voyage-3";
 
-/** Real embeddings — Voyage AI (1024-d). */
+/** Real embeddings, Voyage AI (1024-d). */
 export class VoyageEmbedder implements Embedder {
   readonly dim = 1024;
 

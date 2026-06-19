@@ -8,7 +8,7 @@ import { EmptyState } from "@/components/app/empty-state";
 import { GetDiscovered } from "@/components/app/get-discovered";
 import { Button, Card } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Profile — Envoy" };
+export const metadata: Metadata = { title: "Profile, Envoy" };
 
 function chips(values: string[]) {
   return (
@@ -91,7 +91,7 @@ export default async function ProfilePage() {
               <div className="ppv__exp" key={`${e.company}-${e.title}`}>
                 <b>{e.title}</b> <span>· {e.company}</span>{" "}
                 <span>
-                  ({e.start}–{e.end})
+                  ({e.start}-{e.end})
                 </span>
                 {e.highlights.length > 0 ? (
                   <ul style={{ margin: "6px 0 0", paddingLeft: 18 }}>

@@ -98,7 +98,7 @@ export function generateTailored(input: {
     "",
     "EXPERIENCE",
     ...structured.experience.flatMap((e) => [
-      `${e.title} · ${e.company} (${e.start}–${e.end})`,
+      `${e.title} · ${e.company} (${e.start}-${e.end})`,
       ...e.highlights.map((h) => `  - ${h}`),
     ]),
     structured.education.length > 0 ? "" : "",
@@ -150,7 +150,7 @@ export function generateTailored(input: {
 
   const diffSummary = `Reordered your skills to surface ${
     relevant.slice(0, 2).join(" and ") || "the most relevant ones"
-  }, reframed your summary for the ${job.title} role, and drafted a matching cover letter. Only your real experience — nothing invented.`;
+  }, reframed your summary for the ${job.title} role, and drafted a matching cover letter. Only your real experience, nothing invented.`;
 
   return {
     resumeText,

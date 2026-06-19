@@ -16,7 +16,7 @@ function signingKey(secret: string, dateStamp: string): Buffer {
   return hmac(kService, "aws4_request");
 }
 
-/** Real object storage — Cloudflare R2 (S3-compatible) with AWS SigV4. */
+/** Real object storage, Cloudflare R2 (S3-compatible) with AWS SigV4. */
 export class R2Storage implements StorageAdapter {
   private readonly host: string;
 

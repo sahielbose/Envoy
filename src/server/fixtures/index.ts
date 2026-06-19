@@ -27,7 +27,7 @@ export const profiles: CandidateProfile[] = [
     linkedinUrl: "https://www.linkedin.com/in/alex-rivera-demo",
     baseResumeId: null,
     rawResumeText:
-      "Alex Rivera — Senior Frontend Engineer. 6 years building React design systems at scale.",
+      "Alex Rivera, Senior Frontend Engineer. 6 years building React design systems at scale.",
     structured: {
       name: "Alex Rivera",
       headline: "Senior Frontend Engineer",
@@ -40,7 +40,7 @@ export const profiles: CandidateProfile[] = [
         "Accessibility",
         "Node",
         "GraphQL",
-        "0→1 product",
+        "0 to 1 product",
       ],
       experience: [
         {
@@ -58,7 +58,7 @@ export const profiles: CandidateProfile[] = [
           title: "Frontend Engineer",
           start: "2018",
           end: "2021",
-          highlights: ["Shipped the customer dashboard 0→1 in React + TypeScript."],
+          highlights: ["Shipped the customer dashboard 0 to 1 in React + TypeScript."],
         },
       ],
       education: [{ school: "UC Davis", degree: "B.S. Computer Science", year: "2018" }],
@@ -75,7 +75,7 @@ export const profiles: CandidateProfile[] = [
       dealbreakers: ["On-site 5 days/week"],
     },
     summary:
-      "Senior frontend engineer with 6 years building React design systems at scale; strong on accessibility and 0→1 product.",
+      "Senior frontend engineer with 6 years building React design systems at scale; strong on accessibility and 0 to 1 product.",
     updatedAt: d("2026-05-01T00:00:00.000Z"),
   },
 ];
@@ -193,7 +193,7 @@ export const matches: Match[] = [
     jobId: "job-cobalt-fullstack",
     score: 0.86,
     reasoning:
-      "Small, TypeScript-heavy team — close to the shape of your last role. Node + Postgres are a stretch but adjacent to your stack.",
+      "Small, TypeScript-heavy team, close to the shape of your last role. Node + Postgres are a stretch but adjacent to your stack.",
     gaps: ["Less backend depth (Node/Postgres) than a pure full-stack hire."],
     status: "saved",
     createdAt: d("2026-05-21T00:00:00.000Z"),
@@ -204,8 +204,8 @@ export const matches: Match[] = [
     jobId: "job-fathom-founding",
     score: 0.82,
     reasoning:
-      "Founding-engineer breadth fits your 0→1 product experience; pre-seed risk is the main trade-off.",
-    gaps: ["Pre-seed stage may be earlier than your stated Seed–Series A preference."],
+      "Founding-engineer breadth fits your 0 to 1 product experience; pre-seed risk is the main trade-off.",
+    gaps: ["Pre-seed stage may be earlier than your stated Seed-Series A preference."],
     status: "new",
     createdAt: d("2026-05-21T00:00:00.000Z"),
   },
@@ -215,7 +215,7 @@ export const matches: Match[] = [
     jobId: "job-drift-frontend",
     score: 0.8,
     reasoning:
-      "Accessibility-forward frontend role at Series A — squarely in your wheelhouse.",
+      "Accessibility-forward frontend role at Series A, squarely in your wheelhouse.",
     gaps: [],
     status: "new",
     createdAt: d("2026-05-21T00:00:00.000Z"),
@@ -226,7 +226,7 @@ export const matches: Match[] = [
     jobId: "job-lumen-designer",
     score: 0.58,
     reasoning:
-      "Design-systems overlap is real, but this is a Product Designer role, not engineering — likely a reach unless you're pivoting.",
+      "Design-systems overlap is real, but this is a Product Designer role, not engineering, likely a reach unless you're pivoting.",
     gaps: ["Role is design-led, not engineering.", "Hybrid in New York vs. your remote preference."],
     status: "dismissed",
     createdAt: d("2026-05-21T00:00:00.000Z"),

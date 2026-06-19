@@ -124,7 +124,7 @@ export const TOOL_CONTRACTS = {
   },
   tailor_resume: {
     description:
-      "Reword a base résumé + cover letter for a posting. Truthful only — every change traces to the base. Returns content; never submits.",
+      "Reword a base résumé + cover letter for a posting. Truthful only, every change traces to the base. Returns content; never submits.",
     input: TailorResumeInput,
     output: TailorResumeOutput,
   },
@@ -142,7 +142,7 @@ export const TOOL_CONTRACTS = {
   },
   draft_outreach: {
     description:
-      "Draft warm, personal outreach in tone variants. DRAFT ONLY — returns content, never transmits. Sending is a separate, approval-gated user action.",
+      "Draft warm, personal outreach in tone variants. DRAFT ONLY, returns content, never transmits. Sending is a separate, approval-gated user action.",
     input: DraftOutreachInput,
     output: DraftOutreachOutput,
   },

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui";
 
 export const metadata: Metadata = {
-  title: "Styleguide — Envoy",
+  title: "Styleguide, Envoy",
   description: "The Envoy design system: tokens, primitives, and gradient art.",
 };
 

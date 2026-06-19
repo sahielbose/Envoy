@@ -26,7 +26,7 @@ export function assertNoContactInfo(value: unknown, context: string): void {
   if (hits.length > 0) {
     throw new Error(
       `Policy violation in ${context}: contact info present (${hits.join(", ")}). ` +
-        "Envoy returns roles/archetypes and public data only — never harvested contacts.",
+        "Envoy returns roles/archetypes and public data only, never harvested contacts.",
     );
   }
 }

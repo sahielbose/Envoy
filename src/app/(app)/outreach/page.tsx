@@ -13,7 +13,7 @@ import {
 } from "@/components/app/outreach-queue";
 import { Button } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Outreach — Envoy" };
+export const metadata: Metadata = { title: "Outreach, Envoy" };
 
 export default async function OutreachPage() {
   const session = await getSession();
@@ -25,7 +25,7 @@ export default async function OutreachPage() {
       <>
         <PageHeader
           title="Outreach"
-          subtitle="Warm, personal drafts — approved by you before anything sends."
+          subtitle="Warm, personal drafts, approved by you before anything sends."
         />
         <EmptyState
           icon={Mail}
@@ -83,7 +83,7 @@ export default async function OutreachPage() {
     <>
       <PageHeader
         title="Outreach"
-        subtitle="Warm, personal drafts — approved by you before anything sends."
+        subtitle="Warm, personal drafts, approved by you before anything sends."
       />
       <OutreachQueue
         items={items}

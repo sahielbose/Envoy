@@ -10,7 +10,7 @@ export function SuccessStory() {
           <h2 className="serif">3 warm intros in the first week</h2>
           <div className="success__p">
             <p>
-              Maya had spent four months applying cold — résumés into a black hole, no replies, no
+              Maya had spent four months applying cold, résumés into a black hole, no replies, no
               momentum.
             </p>
             <p>

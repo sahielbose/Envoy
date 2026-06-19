@@ -23,7 +23,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "How much does it cost?",
-    a: "Envoy is free to start while we're in early access. Paid plans will come later — you'll always know before anything changes.",
+    a: "Envoy is free to start while we're in early access. Paid plans will come later, you'll always know before anything changes.",
   },
 ];
 

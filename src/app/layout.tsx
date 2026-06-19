@@ -17,7 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Envoy — Get in front of your dream company",
+  title: "Envoy, Get in front of your dream company",
   description:
     "Envoy is your AI career super-connector. It finds the roles you deserve, maps the right people to reach, and drafts outreach that sounds like you.",
 };

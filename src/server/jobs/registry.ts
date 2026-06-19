@@ -6,7 +6,7 @@ import {
   interviewReminderJob,
 } from "./handlers";
 
-/** Job name → handler. Drives the dev scheduler and the Inngest functions. */
+/** Job name to handler. Drives the dev scheduler and the Inngest functions. */
 export const JOBS: Record<string, JobHandler> = {
   ingest: ingestionJob,
   "match-refresh": matchRefreshJob,

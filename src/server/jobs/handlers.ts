@@ -6,7 +6,7 @@ import type { JobDeps, JobResult } from "./types";
 const DUE_SOON_DAYS = 7;
 
 function dueWithinDays(due: string | undefined, days: number): boolean {
-  if (!due) return true; // no date → treat as actionable
+  if (!due) return true; // no date to treat as actionable
   const ms = Date.parse(due);
   if (Number.isNaN(ms)) return true;
   const now = Date.parse("2026-06-01T00:00:00.000Z");
@@ -36,7 +36,7 @@ export async function matchRefreshJob(deps: JobDeps): Promise<JobResult> {
       addNotification(profile.userId, {
         type: "match",
         title: `${fresh} new match${fresh === 1 ? "" : "es"} this week`,
-        body: "Envoy refreshed your matches — review the new roles and why each fits.",
+        body: "Envoy refreshed your matches, review the new roles and why each fits.",
       });
       notifications += 1;
     }
@@ -87,7 +87,7 @@ export async function interviewReminderJob(deps: JobDeps): Promise<JobResult> {
       if (!dueWithinDays(due, DUE_SOON_DAYS)) continue;
       addNotification(profile.userId, {
         type: "interview",
-        title: "Interview coming up — prep ready",
+        title: "Interview coming up, prep ready",
         body: `You have an interview${due ? ` around ${due}` : " soon"}. Your dossier and likely questions are ready in Research.`,
       });
       notifications += 1;

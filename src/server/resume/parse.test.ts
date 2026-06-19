@@ -13,7 +13,7 @@ San Francisco, CA
 Skills: Go, Postgres, Kubernetes
 
 Experience
-Acme — Staff Backend Engineer (2020–Present)
+Acme, Staff Backend Engineer (2020-Present)
 - Scaled the payments service to 10k rps.
 `;
 

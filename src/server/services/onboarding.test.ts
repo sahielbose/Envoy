@@ -5,7 +5,7 @@ import { MemoryStorage } from "@/server/storage";
 import { PreferencesSchema, ProfileStructuredSchema } from "@/lib/domain";
 
 describe("onboarding flow (mock)", () => {
-  it("upload → parse → build_profile persists a profile and summary", async () => {
+  it("upload to parse to build_profile persists a profile and summary", async () => {
     const { repositories } = createTestRepositories({
       users: [
         {

@@ -13,7 +13,7 @@ let cached: Repositories | null = null;
 
 /**
  * The app's data source. USE_MOCKS (overridable via MOCK_DB) selects the
- * in-memory mock store — seeded from fixtures — or the Prisma-backed repos.
+ * in-memory mock store, seeded from fixtures, or the Prisma-backed repos.
  */
 export function getRepositories(): Repositories {
   if (cached) return cached;

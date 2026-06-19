@@ -7,7 +7,7 @@ import { getDashboardSummary } from "@/server/dashboard/summary";
 import { PageHeader } from "@/components/app/page-header";
 import { Button, Card } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Dashboard — Envoy" };
+export const metadata: Metadata = { title: "Dashboard, Envoy" };
 
 export default async function DashboardPage() {
   const session = await getSession();
@@ -21,7 +21,7 @@ export default async function DashboardPage() {
         <Card className="dash-card">
           <h3>Build your profile</h3>
           <p className="muted" style={{ fontSize: 14, margin: "6px 0 14px" }}>
-            Upload your résumé and set your targets — Envoy will surface your first matches the
+            Upload your résumé and set your targets, Envoy will surface your first matches the
             same day.
           </p>
           <Button href="/onboarding">Set up your profile</Button>
@@ -63,13 +63,13 @@ export default async function DashboardPage() {
             <ul style={{ margin: "6px 0 0", paddingLeft: 18 }}>
               {s.topMatches.map((m) => (
                 <li key={m.jobId} style={{ fontSize: 13.5, color: "var(--ink-soft)", marginTop: 5 }}>
-                  {m.title} · {m.company} — {Math.round(m.score * 100)}%
+                  {m.title} · {m.company}, {Math.round(m.score * 100)}%
                 </li>
               ))}
             </ul>
           ) : (
             <p className="muted" style={{ fontSize: 14, margin: 0 }}>
-              No matches yet — build your profile to see ranked roles.
+              No matches yet, build your profile to see ranked roles.
             </p>
           )}
           <Link href="/matches" className="tcard__link" style={{ marginTop: 10 }}>
@@ -89,7 +89,7 @@ export default async function DashboardPage() {
             </ul>
           ) : (
             <p className="muted" style={{ fontSize: 14, margin: 0 }}>
-              Nothing to approve. Drafts appear here — nothing sends without your approval.
+              Nothing to approve. Drafts appear here, nothing sends without your approval.
             </p>
           )}
           <Link href="/outreach" className="tcard__link" style={{ marginTop: 10 }}>

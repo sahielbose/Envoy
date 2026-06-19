@@ -8,7 +8,7 @@ import { EmptyState } from "@/components/app/empty-state";
 import { TrackerBoard, type TrackerItem } from "@/components/app/tracker-board";
 import { Button } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Tracker — Envoy" };
+export const metadata: Metadata = { title: "Tracker, Envoy" };
 
 export default async function TrackerPage() {
   const session = await getSession();

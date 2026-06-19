@@ -73,7 +73,7 @@ export class MockReranker implements Reranker {
       );
       const titleMatch = titles.some((t) => t && job.title.toLowerCase().includes(t)) ? 1 : 0;
 
-      // Surfaced roles sit in a realistic 45–100 band; strong fits reach the 90s.
+      // Surfaced roles sit in a realistic 45-100 band; strong fits reach the 90s.
       const score = round2(
         clamp01(0.45 + 0.3 * skillScore + 0.15 * titleMatch + 0.1 * normalizedSim),
       );

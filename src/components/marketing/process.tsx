@@ -10,14 +10,14 @@ const STEPS: { word: string; num: string; variant: ArtVariant; title: string; bo
     num: "01",
     variant: "violet",
     title: "Profile",
-    body: "Drop your résumé and LinkedIn. Envoy does its homework and builds a picture of where you stand out — no rigid forms.",
+    body: "Drop your résumé and LinkedIn. Envoy does its homework and builds a picture of where you stand out, no rigid forms.",
   },
   {
     word: "Match",
     num: "02",
     variant: "amber",
     title: "Match",
-    body: "Built on the same recommendation systems that power the world's biggest platforms — Envoy surfaces the roles you deserve and tells you exactly why each one fits.",
+    body: "Built on the same recommendation systems that power the world's biggest platforms, Envoy surfaces the roles you deserve and tells you exactly why each one fits.",
   },
   {
     word: "Connect",
@@ -35,7 +35,7 @@ const STEPS: { word: string; num: string; variant: ArtVariant; title: string; bo
   },
 ];
 
-/** "How it works" — four tabbed steps with gradient art + caption. */
+/** "How it works", four tabbed steps with gradient art + caption. */
 export function Process() {
   const [active, setActive] = useState(0);
   const step = STEPS[active];
@@ -47,7 +47,7 @@ export function Process() {
         <h2>Envoy is your AI career super-connector</h2>
         <p>
           It learns where you shine, finds the roles you deserve, maps who to reach, and prepares
-          you for every round — improving with everything you tell it.
+          you for every round, improving with everything you tell it.
         </p>
       </div>
 

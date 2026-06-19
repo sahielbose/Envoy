@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ============================================================
-   Envoy design tokens — mirrors design/landing.html.
+   Envoy design tokens, mirrors design/landing.html.
    Warm cream canvas, editorial serif, espresso buttons,
    soft pills, dreamy gradient art.
    ============================================================ */
@@ -87,7 +87,7 @@
 }
 
 /* ============================================================
-   Design system — typography helpers
+   Design system, typography helpers
    ============================================================ */
 @layer components {
   .serif {
@@ -105,7 +105,7 @@
 }
 
 /* ============================================================
-   Design system — buttons
+   Design system, buttons
    ============================================================ */
 @layer components {
   .btn {
@@ -151,7 +151,7 @@
 }
 
 /* ============================================================
-   Design system — layout + small surfaces
+   Design system, layout + small surfaces
    ============================================================ */
 @layer components {
   .container {
@@ -202,7 +202,7 @@
 }
 
 /* ============================================================
-   Design system — gradient art (replaces all photography)
+   Design system, gradient art (replaces all photography)
    Layered radial-gradients + SVG film-grain overlay.
    ============================================================ */
 @layer components {
@@ -255,7 +255,7 @@
 }
 
 /* ============================================================
-   Marketing — nav + footer
+   Marketing, nav + footer
    ============================================================ */
 @layer components {
   .nav {
@@ -316,7 +316,7 @@
 }
 
 /* ============================================================
-   Marketing — hero
+   Marketing, hero
    ============================================================ */
 @layer components {
   .hero {
@@ -345,7 +345,7 @@
 }
 
 /* ============================================================
-   Marketing — interactive app preview (window chrome + sidebar)
+   Marketing, interactive app preview (window chrome + sidebar)
    ============================================================ */
 @layer components {
   .appwrap {
@@ -526,7 +526,7 @@
 }
 
 /* ============================================================
-   Marketing — app preview panels (role/ring/chat/draft/board/profile)
+   Marketing, app preview panels (role/ring/chat/draft/board/profile)
    ============================================================ */
 @layer components {
   /* role cards */
@@ -891,7 +891,7 @@
 }
 
 /* ============================================================
-   Marketing — process tabs
+   Marketing, process tabs
    ============================================================ */
 @layer components {
   .proc__head {
@@ -981,7 +981,7 @@
 }
 
 /* ============================================================
-   Marketing — testimonial + success story
+   Marketing, testimonial + success story
    ============================================================ */
 @layer components {
   .layer {
@@ -1087,7 +1087,7 @@
 }
 
 /* ============================================================
-   Marketing — why, faq
+   Marketing, why, faq
    ============================================================ */
 @layer components {
   .why__head {
@@ -1234,7 +1234,7 @@
 }
 
 /* ============================================================
-   Marketing — logo strip, scroll reveal, responsive
+   Marketing, logo strip, scroll reveal, responsive
    ============================================================ */
 @layer components {
   .logos {
@@ -1529,7 +1529,7 @@
 }
 
 /* ============================================================
-   App — page header, metrics, dashboard
+   App, page header, metrics, dashboard
    ============================================================ */
 @layer components {
   .page-head {
@@ -1589,7 +1589,7 @@
 }
 
 /* ============================================================
-   App — empty state + loading skeleton
+   App, empty state + loading skeleton
    ============================================================ */
 @layer components {
   .empty {
@@ -1647,7 +1647,7 @@
 }
 
 /* ============================================================
-   App — résumé upload / onboarding
+   App, résumé upload / onboarding
    ============================================================ */
 @layer components {
   .dropzone {
@@ -1709,7 +1709,7 @@
 }
 
 /* ============================================================
-   App — profile preview
+   App, profile preview
    ============================================================ */
 @layer components {
   .ppv h3 {
@@ -1756,7 +1756,7 @@
 }
 
 /* ============================================================
-   App — forms, tag input, switch
+   App, forms, tag input, switch
    ============================================================ */
 @layer components {
   .field {
@@ -1891,7 +1891,7 @@
 }
 
 /* ============================================================
-   App — onboarding steps
+   App, onboarding steps
    ============================================================ */
 @layer components {
   .ob-steps {
@@ -1930,7 +1930,7 @@
 }
 
 /* ============================================================
-   App — matches view (extends preview role/ring classes)
+   App, matches view (extends preview role/ring classes)
    ============================================================ */
 @layer components {
   .role__gaps {
@@ -1960,7 +1960,7 @@
 }
 
 /* ============================================================
-   App — chat copilot
+   App, chat copilot
    ============================================================ */
 @layer components {
   .chat {
@@ -2126,7 +2126,7 @@
 }
 
 /* ============================================================
-   App — résumé studio
+   App, résumé studio
    ============================================================ */
 @layer components {
   .studio__bar {
@@ -2222,7 +2222,7 @@
 }
 
 /* ============================================================
-   App — research dossier
+   App, research dossier
    ============================================================ */
 @layer components {
   .dossier {
@@ -2272,7 +2272,7 @@
 }
 
 /* ============================================================
-   App — tracker
+   App, tracker
    ============================================================ */
 @layer components {
   .tracker-toolbar {
@@ -2358,7 +2358,7 @@
 }
 
 /* ============================================================
-   App — tracker card editor
+   App, tracker card editor
    ============================================================ */
 @layer components {
   .tcard__edit {
@@ -2419,7 +2419,7 @@
 }
 
 /* ============================================================
-   App — notification center
+   App, notification center
    ============================================================ */
 @layer components {
   .notif {
@@ -2466,7 +2466,7 @@
 }
 
 /* ============================================================
-   A11y — global focus-visible + skip link
+   A11y, global focus-visible + skip link
    ============================================================ */
 @layer base {
   a:focus-visible,
@@ -2497,7 +2497,7 @@
 }
 
 /* ============================================================
-   App — centered error / 404 state
+   App, centered error / 404 state
    ============================================================ */
 .center-state {
   min-height: 70vh;
@@ -2511,7 +2511,7 @@
 }
 
 /* ============================================================
-   App — responsive / mobile passes
+   App, responsive / mobile passes
    ============================================================ */
 @media (max-width: 820px) {
   .app {

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Card, Toggle } from "@/components/ui";
 
 /**
- * "Get discovered" presentation toggle. Off by default and revocable — the
+ * "Get discovered" presentation toggle. Off by default and revocable, the
  * share link only appears when explicitly enabled. This is a presentation tool,
  * not a marketplace (no auto-apply to the candidate).
  */
@@ -17,7 +17,7 @@ export function GetDiscovered({ handle }: { handle: string }) {
         <div>
           <b style={{ fontSize: 14 }}>Get discovered</b>
           <small>
-            Let vetted teams reach out to you. Off by default — you stay in control and can turn it
+            Let vetted teams reach out to you. Off by default, you stay in control and can turn it
             off anytime.
           </small>
         </div>
@@ -36,7 +36,7 @@ export function GetDiscovered({ handle }: { handle: string }) {
             </button>
           </div>
           <p className="muted" style={{ fontSize: 12, marginTop: 8 }}>
-            A presentation tool, not a marketplace — companies don&apos;t auto-apply to you, and your
+            A presentation tool, not a marketplace, companies don&apos;t auto-apply to you, and your
             data is never sold or shared.
           </p>
         </div>

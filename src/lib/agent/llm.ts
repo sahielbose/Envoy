@@ -43,7 +43,7 @@ interface ScriptedTurn {
 
 /**
  * Scripted mock LLM. Decides a single tool call from the latest user message,
- * then — once the tool result arrives — produces a final, plain-English reply.
+ * then, once the tool result arrives, produces a final, plain-English reply.
  * Token-streams its text word by word so the UI behaves like the real thing.
  */
 export class ScriptedMockProvider implements LLMProvider {
@@ -110,16 +110,16 @@ export class ScriptedMockProvider implements LLMProvider {
       return `Found ${n} strong match${n === 1 ? "" : "es"}. They're ranked on your matches page, each with the reasoning and gaps behind the fit. Want me to draft a warm intro to one of them? You'll approve it before anything sends.`;
     }
     if (tool === "draft_outreach") {
-      return "I've drafted a few tone variants for you to review. Nothing sends until you approve a specific message — you can copy it or open it in mail.";
+      return "I've drafted a few tone variants for you to review. Nothing sends until you approve a specific message, you can copy it or open it in mail.";
     }
     if (tool === "tailor_resume") {
-      return "I tailored your résumé and a cover letter for this role, with a diff so you can see what changed. I only reworded what's true — no fabricated experience.";
+      return "I tailored your résumé and a cover letter for this role, with a diff so you can see what changed. I only reworded what's true, no fabricated experience.";
     }
     if (tool === "research_company") {
       return "Here's your dossier: an overview, likely interview questions, and smart questions to ask. It's built from public sources only.";
     }
     if (tool === "map_contacts") {
-      return "Here are the right people to reach and why. These are roles and publicly-listed names only — I never scrape private contact info.";
+      return "Here are the right people to reach and why. These are roles and publicly-listed names only, I never scrape private contact info.";
     }
     if (tool === "track_application") {
       return "Tracked it. You'll see it move through your pipeline, and I'll nudge you about follow-ups.";

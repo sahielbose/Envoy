@@ -28,9 +28,9 @@ const asStringArray = (value: unknown): string[] =>
   Array.isArray(value) ? value.filter((x): x is string => typeof x === "string") : [];
 
 /**
- * find_roles end to end: retrieve (vector + hard filters) → rerank (score +
- * reasoning + gaps) → persist as Match (preserving the user's saved/dismissed
- * status) → return the ranked, non-dismissed matches.
+ * find_roles end to end: retrieve (vector + hard filters) to rerank (score +
+ * reasoning + gaps) to persist as Match (preserving the user's saved/dismissed
+ * status) to return the ranked, non-dismissed matches.
  */
 export async function runFindRoles(
   deps: FindRolesDeps,

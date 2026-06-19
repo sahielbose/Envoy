@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     rationale: "Owns the role and the decision.",
   };
 
-  // Draft only — this never sends.
+  // Draft only, this never sends.
   await services.draftOutreach({
     profileId: profile.id,
     jobId: parsed.data.jobId,

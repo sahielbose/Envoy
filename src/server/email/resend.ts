@@ -4,7 +4,7 @@ import type { EmailSender, SendInput, SendResult } from "./sender";
 const FROM = process.env.EMAIL_FROM ?? "Envoy <outreach@envoy.so>";
 
 /**
- * Real approved-message sender — Resend. A per-user Gmail OAuth sender can plug
+ * Real approved-message sender, Resend. A per-user Gmail OAuth sender can plug
  * in behind this same EmailSender interface (optional). Sending still happens
  * only through the gated, per-message approval path (sendOutreach).
  */

@@ -7,7 +7,7 @@ import { sendOutreach } from "@/server/email/send-outreach";
 export const runtime = "nodejs";
 
 // The recipient is user-provided (Envoy never harvests contacts), and confirm
-// must be explicitly true — per-message approval.
+// must be explicitly true, per-message approval.
 const Body = z.object({
   draftIndex: z.number().int().min(0),
   to: z.string().email(),

@@ -2,7 +2,7 @@ import type { Dossier, Interviewer } from "@/lib/domain";
 import type { SearchResult } from "@/lib/search";
 import type { Job } from "@/server/repositories";
 
-/** People to expect — roles/archetypes only (public data; never scraped). */
+/** People to expect, roles/archetypes only (public data; never scraped). */
 function peopleFor(job?: Job | null): Interviewer[] {
   const title = (job?.title ?? "").toLowerCase();
   const craft = /design/.test(title)
@@ -46,14 +46,14 @@ export function likelyQuestions(job?: Job | null): string[] {
   if (/manager|product|pm/.test(title)) {
     return [
       "How do you prioritize a roadmap with limited resources?",
-      "Tell me about a launch you led 0→1.",
+      "Tell me about a launch you led 0 to 1.",
       "How do you balance velocity with quality?",
     ];
   }
   return [
     "Walk me through a system or component you designed and the trade-offs you made.",
     "How do you approach accessibility and performance under a deadline?",
-    "Tell me about a time you shipped something 0→1.",
+    "Tell me about a time you shipped something 0 to 1.",
   ];
 }
 

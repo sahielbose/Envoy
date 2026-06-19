@@ -11,7 +11,7 @@ export interface Session {
   user: SessionUser;
 }
 
-/** Auth behind an interface — mock now, real Auth.js adapter in Phase 20. */
+/** Auth behind an interface, mock now, real Auth.js adapter in Phase 20. */
 export interface AuthAdapter {
   getSession(): Promise<Session | null>;
 }

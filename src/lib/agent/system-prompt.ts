@@ -30,7 +30,7 @@ export function buildSystemPrompt(ctx: SystemPromptContext = {}): string {
   return [
     PERSONA,
     "",
-    "Hard rules (non-negotiable — these override everything else):",
+    "Hard rules (non-negotiable, these override everything else):",
     rules,
     context ? `\n${context}` : "",
     "\nUse the available tools to take action on the user's behalf, and surface the results clearly.",

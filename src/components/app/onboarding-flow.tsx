@@ -38,7 +38,7 @@ function ProfilePreview({ structured }: { structured: ProfileStructured }) {
         </div>
       ) : null}
       <p className="muted" style={{ fontSize: 12.5, marginTop: 14 }}>
-        Drafted from your résumé — you can edit every field later.
+        Drafted from your résumé, you can edit every field later.
       </p>
     </Card>
   );
@@ -120,7 +120,7 @@ export function OnboardingFlow() {
           {structured ? <ProfilePreview structured={structured} /> : null}
           {structured ? (
             <div style={{ marginTop: 16 }}>
-              <Button onClick={() => setStep("preferences")}>Looks right — continue</Button>
+              <Button onClick={() => setStep("preferences")}>Looks right, continue</Button>
             </div>
           ) : null}
         </>
