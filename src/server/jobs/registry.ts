@@ -1,10 +1,17 @@
 import type { JobDeps, JobHandler, JobResult } from "./types";
-import { ingestionJob, matchRefreshJob } from "./handlers";
+import {
+  ingestionJob,
+  matchRefreshJob,
+  followupReminderJob,
+  interviewReminderJob,
+} from "./handlers";
 
 /** Job name → handler. Drives the dev scheduler and the Inngest functions. */
 export const JOBS: Record<string, JobHandler> = {
   ingest: ingestionJob,
   "match-refresh": matchRefreshJob,
+  "followup-reminder": followupReminderJob,
+  "interview-reminder": interviewReminderJob,
 };
 
 export function jobNames(): string[] {

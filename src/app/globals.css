@@ -2574,3 +2574,50 @@
     text-decoration: underline;
   }
 }
+
+/* ============================================================
+   App — notification center
+   ============================================================ */
+@layer components {
+  .notif {
+    position: relative;
+  }
+  .notif__panel {
+    position: absolute;
+    right: 0;
+    top: 46px;
+    width: 320px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 24px 60px -30px rgba(43, 33, 23, 0.55);
+    padding: 7px;
+    z-index: 60;
+    max-height: 420px;
+    overflow-y: auto;
+  }
+  .notif__item {
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+  .notif__item:hover {
+    background: var(--bg);
+  }
+  .notif__item b {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .notif__item p {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 3px 0 0;
+    line-height: 1.45;
+  }
+  .notif__empty {
+    padding: 18px 16px;
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+}

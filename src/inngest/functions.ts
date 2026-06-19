@@ -1,7 +1,12 @@
 import { inngest } from "./client";
 import { getRepositories } from "@/server/repositories";
 import { getServices } from "@/server/services";
-import { ingestionJob, matchRefreshJob } from "@/server/jobs/handlers";
+import {
+  ingestionJob,
+  matchRefreshJob,
+  followupReminderJob,
+  interviewReminderJob,
+} from "@/server/jobs/handlers";
 
 const deps = () => ({ repositories: getRepositories(), services: getServices() });
 
@@ -17,5 +22,17 @@ export const matchRefreshFn = inngest.createFunction(
   async () => matchRefreshJob(deps()),
 );
 
+export const followupFn = inngest.createFunction(
+  { id: "followup-reminder" },
+  { cron: "0 9 * * *" }, // daily 09:00
+  async () => followupReminderJob(deps()),
+);
+
+export const interviewFn = inngest.createFunction(
+  { id: "interview-reminder" },
+  { cron: "0 8 * * *" }, // daily 08:00
+  async () => interviewReminderJob(deps()),
+);
+
 /** All Inngest functions, served in Phase 20. */
-export const functions = [ingestFn, matchRefreshFn];
+export const functions = [ingestFn, matchRefreshFn, followupFn, interviewFn];
