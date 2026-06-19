@@ -7,3 +7,4 @@ export { Container } from "./container";
 export { Section } from "./section";
 export { GradientArt, type ArtVariant } from "./gradient-art";
 export { Icon } from "./icon";
+export { Toggle } from "./toggle";
