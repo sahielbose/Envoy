@@ -53,6 +53,36 @@ export function ChatView() {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [messages]);
 
+  // Hydrate a persisted thread (mock-first, per process). Keeps the welcome
+  // when the thread is empty.
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      try {
+        const res = await fetch("/api/chat/thread");
+        if (!res.ok) return;
+        const data = (await res.json()) as {
+          messages: { role: "user" | "assistant"; text: string; toolResults?: ChatToolResult[] }[];
+        };
+        if (active && data.messages.length > 0) {
+          setMessages(
+            data.messages.map((m, i) => ({
+              id: `h${i}`,
+              role: m.role,
+              text: m.text,
+              toolResults: m.toolResults,
+            })),
+          );
+        }
+      } catch {
+        /* keep the welcome message */
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, []);
+
   function patch(id: string, fn: (m: ChatMessage) => ChatMessage) {
     setMessages((prev) => prev.map((m) => (m.id === id ? fn(m) : m)));
   }
