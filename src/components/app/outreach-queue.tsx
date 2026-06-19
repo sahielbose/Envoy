@@ -34,16 +34,27 @@ function mailto(draft: OutreachDraftItem): string {
 
 function DraftCard({
   item,
+  gmailConnected,
   onRegenerate,
   onApprove,
+  onSend,
 }: {
   item: OutreachItem;
+  gmailConnected: boolean;
   onRegenerate: (jobId: string) => void;
   onApprove: (id: string) => void;
+  onSend: (id: string, draftIndex: number, to: string) => void;
 }) {
   const [toneIndex, setToneIndex] = useState(0);
   const [copied, setCopied] = useState(false);
   const draft = item.drafts[toneIndex] ?? item.drafts[0];
+
+  function sendViaGmail() {
+    const to = window.prompt(
+      "Recipient email (you provide this — Envoy never harvests contacts):",
+    );
+    if (to) onSend(item.id, toneIndex, to);
+  }
 
   async function approveAndCopy() {
     const text = `${draft.subject ? `Subject: ${draft.subject}\n\n` : ""}${draft.body}`;
@@ -99,7 +110,17 @@ function DraftCard({
         <button type="button" className="btn btn--ghost" onClick={() => onRegenerate(item.jobId)}>
           Regenerate
         </button>
+        {item.status === "approved" && gmailConnected ? (
+          <button type="button" className="btn btn--ghost" onClick={sendViaGmail}>
+            Send via Gmail
+          </button>
+        ) : null}
       </div>
+      {item.status === "approved" && !gmailConnected ? (
+        <p className="note" style={{ margin: "0 15px 13px" }}>
+          Connect Gmail in settings to send — copy and open-in-mail need no setup.
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -107,9 +128,11 @@ function DraftCard({
 export function OutreachQueue({
   items,
   options,
+  gmailConnected = false,
 }: {
   items: OutreachItem[];
   options: RoleOption[];
+  gmailConnected?: boolean;
 }) {
   const router = useRouter();
   const [jobId, setJobId] = useState(options[0]?.jobId ?? "");
@@ -132,6 +155,15 @@ export function OutreachQueue({
 
   async function approve(id: string) {
     await fetch(`/api/outreach/${id}/approve`, { method: "POST" });
+    router.refresh();
+  }
+
+  async function send(id: string, draftIndex: number, to: string) {
+    await fetch(`/api/outreach/${id}/send`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ draftIndex, to, confirm: true }),
+    });
     router.refresh();
   }
 
@@ -167,7 +199,14 @@ export function OutreachQueue({
 
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         {items.map((item) => (
-          <DraftCard key={item.id} item={item} onRegenerate={draftFor} onApprove={approve} />
+          <DraftCard
+            key={item.id}
+            item={item}
+            gmailConnected={gmailConnected}
+            onRegenerate={draftFor}
+            onApprove={approve}
+            onSend={send}
+          />
         ))}
       </div>
     </div>

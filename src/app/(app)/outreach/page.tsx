@@ -77,13 +77,19 @@ export default async function OutreachPage() {
     options.push({ jobId: m.jobId, label: labelFor(m.jobId) });
   }
 
+  const settings = await repos.settings.findByUserId(session?.user.id ?? "");
+
   return (
     <>
       <PageHeader
         title="Outreach"
         subtitle="Warm, personal drafts — approved by you before anything sends."
       />
-      <OutreachQueue items={items} options={options} />
+      <OutreachQueue
+        items={items}
+        options={options}
+        gmailConnected={settings?.gmailConnected ?? false}
+      />
     </>
   );
 }
