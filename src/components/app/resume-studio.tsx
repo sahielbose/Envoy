@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui";
+import { ShieldCheck } from "lucide-react";
+import { Button, Icon } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import type { ResumeChange } from "@/lib/domain";
 
@@ -95,6 +96,11 @@ export function ResumeStudio({ options }: { options: RoleOption[] }) {
 
       {result ? (
         <>
+          <div className="truthful-note">
+            <Icon icon={ShieldCheck} size={14} />
+            Envoy only rewords what&apos;s true — every line traces to your base résumé. It never
+            invents employers, titles, dates, or skills.
+          </div>
           <p className="muted" style={{ fontSize: 13.5, marginBottom: 14 }}>
             {result.diffSummary}
           </p>

@@ -5,7 +5,7 @@ import {
 } from "@/lib/domain";
 import { fixtures } from "@/server/fixtures";
 import { runFindRoles } from "@/lib/matching/pipeline";
-import { generateTailored, putDoc } from "@/server/resume/tailor";
+import { generateTailored, putDoc, verifyTruthful } from "@/server/resume/tailor";
 import type { ServiceDeps } from "./deps";
 import type { EnvoyServices } from "./types";
 
@@ -89,6 +89,9 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
         },
       });
 
+      // Truthfulness guard: drop any change that doesn't trace to the base.
+      const verified = result.changes.filter((c) => verifyTruthful([c], result.baseText).ok);
+
       const resumeDoc = putDoc({
         kind: "resume",
         title: `Résumé — ${job?.title ?? "role"}`,
@@ -104,7 +107,7 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
         resumeDocId: resumeDoc.id,
         coverLetterDocId: coverDoc.id,
         diffSummary: result.diffSummary,
-        changes: result.changes,
+        changes: verified,
       };
     },
 

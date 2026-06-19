@@ -29,6 +29,23 @@ export interface JobContext {
   description: string;
 }
 
+export interface TruthCheck {
+  ok: boolean;
+  violations: ResumeChange[];
+}
+
+/**
+ * Truthfulness guard: every change must trace to a real span in the base
+ * résumé/profile. A change whose `source` is not a (whitespace-normalized)
+ * substring of the base is a fabrication and is rejected.
+ */
+export function verifyTruthful(changes: ResumeChange[], baseText: string): TruthCheck {
+  const norm = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
+  const base = norm(baseText);
+  const violations = changes.filter((c) => c.source.trim() !== "" && !base.includes(norm(c.source)));
+  return { ok: violations.length === 0, violations };
+}
+
 export interface TailorResult {
   resumeText: string;
   coverText: string;
