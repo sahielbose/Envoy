@@ -135,7 +135,8 @@ export function generateTailored(input: {
       section: "Skills",
       before: structured.skills.join(" · "),
       after: reordered.join(" · "),
-      source: structured.skills.join(" · "),
+      // Source uses the base serialization's separator so it traces cleanly.
+      source: structured.skills.join(" "),
     },
   ];
   if (topHighlight) {
