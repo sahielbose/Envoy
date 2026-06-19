@@ -1,3 +1,6 @@
+import { shouldMock } from "@/lib/env";
+import { VoyageEmbedder } from "./voyage";
+
 export const EMBED_DIM = 1024;
 
 /** Embeddings provider. Mock = deterministic; Phase 20 = Voyage. */
@@ -52,6 +55,13 @@ export class MockEmbedder implements Embedder {
 let cached: Embedder | null = null;
 
 export function getEmbedder(): Embedder {
-  if (!cached) cached = new MockEmbedder();
+  if (!cached) {
+    if (shouldMock("embeddings")) {
+      cached = new MockEmbedder();
+    } else {
+      const { VoyageEmbedder } = require("./voyage") as typeof import("./voyage");
+      cached = new VoyageEmbedder();
+    }
+  }
   return cached;
 }
