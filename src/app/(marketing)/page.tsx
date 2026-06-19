@@ -1,6 +1,13 @@
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/marketing/hero";
-import { AppPreview } from "@/components/marketing/app-preview";
 import { LogoStrip } from "@/components/marketing/logo-strip";
+
+// Code-split the interactive preview into its own chunk; reserve its height to
+// avoid layout shift while it loads.
+const AppPreview = dynamic(
+  () => import("@/components/marketing/app-preview").then((m) => m.AppPreview),
+  { loading: () => <div className="appwrap" style={{ minHeight: 480 }} aria-hidden="true" /> },
+);
 import { Process } from "@/components/marketing/process";
 import { Testimonial } from "@/components/marketing/testimonial";
 import { SuccessStory } from "@/components/marketing/success-story";

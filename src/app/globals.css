@@ -292,6 +292,9 @@
     border-top: 1px solid var(--line-2);
     text-align: center;
     padding: clamp(64px, 9vw, 108px) 0 36px;
+    /* Skip rendering the static footer until it's scrolled near. */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 360px;
   }
   .footer__logo {
     font-family: var(--serif);
