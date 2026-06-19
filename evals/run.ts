@@ -1,9 +1,10 @@
 import { smokeEval } from "./smoke";
 import { matchRelevanceEval } from "./match-relevance";
 import { outreachQualityEval } from "./outreach-quality";
+import { tailoringEval } from "./tailoring";
 import type { EvalSet } from "./types";
 
-const SETS: EvalSet[] = [smokeEval, matchRelevanceEval, outreachQualityEval];
+const SETS: EvalSet[] = [smokeEval, matchRelevanceEval, outreachQualityEval, tailoringEval];
 
 async function main() {
   let allOk = true;
