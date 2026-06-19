@@ -70,6 +70,7 @@ export const env = loadEnv();
  * Each can override the master USE_MOCKS switch via MOCK_<PROVIDER>=true|false.
  */
 export type MockableProvider =
+  | "db"
   | "llm"
   | "embeddings"
   | "search"
