@@ -1,13 +1,19 @@
+import { shouldMock } from "@/lib/env";
 import { getRepositories, type Repositories } from "@/server/repositories";
 import { toJobUpsert } from "./normalize";
 import { GreenhouseSource } from "./sources/greenhouse";
 import { LeverSource } from "./sources/lever";
 import { AshbySource } from "./sources/ashby";
 import { AdzunaSource } from "./sources/adzuna";
+import { GreenhouseLiveSource, LeverLiveSource, AshbyLiveSource } from "./live";
 import type { JobSource } from "./types";
 
 export function defaultSources(): JobSource[] {
-  return [new GreenhouseSource(), new LeverSource(), new AshbySource(), new AdzunaSource()];
+  if (shouldMock("jobs")) {
+    return [new GreenhouseSource(), new LeverSource(), new AshbySource(), new AdzunaSource()];
+  }
+  // Live public boards (no key). Adzuna live is added in the next commit.
+  return [new GreenhouseLiveSource(), new LeverLiveSource(), new AshbyLiveSource()];
 }
 
 export interface IngestionResult {
