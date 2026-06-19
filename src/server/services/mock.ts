@@ -3,6 +3,7 @@ import { fixtures } from "@/server/fixtures";
 import { runFindRoles } from "@/lib/matching/pipeline";
 import { generateTailored, putDoc, verifyTruthful } from "@/server/resume/tailor";
 import { buildDossier, likelyQuestions, questionsToAsk } from "@/server/research/dossier";
+import { ResearchCompanyOutput } from "@/server/tools/contracts";
 import type { ServiceDeps } from "./deps";
 import type { EnvoyServices } from "./types";
 
@@ -109,18 +110,32 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
     },
 
     async researchCompany({ company, jobId }) {
+      // Cache hit: return the dossier stored on the Company.
+      const existing = await repositories.companies.findByName(company);
+      if (existing?.dossier && existing.dossierAt) {
+        const cached = ResearchCompanyOutput.safeParse(existing.dossier);
+        if (cached.success) return cached.data;
+      }
+
       const results = await deps.search.search(
         `${company} company news funding product culture`,
         { limit: 5 },
       );
       const job = jobId ? await repositories.jobs.findById(jobId) : null;
-      const dossier = buildDossier(company, results, job);
-      return {
-        dossier,
+      const output = {
+        dossier: buildDossier(company, results, job),
         likelyQuestions: likelyQuestions(job),
         questionsToAsk: questionsToAsk(company),
         sources: results.map((r) => ({ title: r.title, url: r.url })),
       };
+
+      // Cache on the Company for next time.
+      await repositories.companies.upsert({
+        name: company,
+        dossier: output,
+        dossierAt: new Date("2026-06-01T00:00:00.000Z"),
+      });
+      return output;
     },
 
     async mapContacts() {
