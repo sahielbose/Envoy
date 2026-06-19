@@ -114,6 +114,7 @@ export interface UserRepository {
 export interface ProfileRepository {
   findById(id: string): Promise<CandidateProfile | null>;
   findByUserId(userId: string): Promise<CandidateProfile | null>;
+  list(): Promise<CandidateProfile[]>;
   upsert(input: ProfileUpsert): Promise<CandidateProfile>;
 }
 

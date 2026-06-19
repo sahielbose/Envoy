@@ -21,6 +21,7 @@ export function createPrismaRepositories(prisma: PrismaClient): Repositories {
   const profiles: ProfileRepository = {
     findById: (id) => prisma.candidateProfile.findUnique({ where: { id } }),
     findByUserId: (userId) => prisma.candidateProfile.findUnique({ where: { userId } }),
+    list: () => prisma.candidateProfile.findMany(),
     upsert: (input) =>
       prisma.candidateProfile.upsert({
         where: { userId: input.userId },

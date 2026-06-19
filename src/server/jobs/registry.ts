@@ -1,11 +1,11 @@
 import type { JobDeps, JobHandler, JobResult } from "./types";
+import { ingestionJob, matchRefreshJob } from "./handlers";
 
-/** Job name → handler. Populated as each scheduled function is added. */
-export const JOBS: Record<string, JobHandler> = {};
-
-export function registerJob(name: string, handler: JobHandler): void {
-  JOBS[name] = handler;
-}
+/** Job name → handler. Drives the dev scheduler and the Inngest functions. */
+export const JOBS: Record<string, JobHandler> = {
+  ingest: ingestionJob,
+  "match-refresh": matchRefreshJob,
+};
 
 export function jobNames(): string[] {
   return Object.keys(JOBS);

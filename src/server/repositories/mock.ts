@@ -41,6 +41,9 @@ export function createMockRepositories(store: MockStore): Repositories {
     async findByUserId(userId) {
       return store.profiles.find((p) => p.userId === userId) ?? null;
     },
+    async list() {
+      return [...store.profiles];
+    },
     async upsert(input) {
       const existing = store.profiles.find((p) => p.userId === input.userId);
       if (existing) {
