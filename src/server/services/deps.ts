@@ -6,17 +6,23 @@ import { getTextExtractor } from "@/server/resume/extractor";
 import type { TextExtractor } from "@/server/resume/extractor";
 import { getStructuredExtractor } from "@/server/resume/structured";
 import type { StructuredExtractor } from "@/server/resume/structured";
+import { getEmbedder } from "@/lib/matching/embeddings";
+import type { Embedder } from "@/lib/matching/embeddings";
+import { getReranker } from "@/lib/matching/rerank";
+import type { Reranker } from "@/lib/matching/rerank";
 
 /**
- * Dependency container for the services. Holds the data source and the résumé
- * pipeline providers today; later phases add LLM/embeddings/web-search behind
- * their own interfaces. Each is overridable for tests.
+ * Dependency container for the services. Holds the data source, résumé pipeline,
+ * and matching providers today; later phases add LLM/web-search behind their own
+ * interfaces. Each is overridable for tests.
  */
 export interface ServiceDeps {
   repositories: Repositories;
   storage: StorageAdapter;
   extractor: TextExtractor;
   structured: StructuredExtractor;
+  embedder: Embedder;
+  reranker: Reranker;
 }
 
 export function createDeps(overrides: Partial<ServiceDeps> = {}): ServiceDeps {
@@ -25,5 +31,7 @@ export function createDeps(overrides: Partial<ServiceDeps> = {}): ServiceDeps {
     storage: overrides.storage ?? getStorage(),
     extractor: overrides.extractor ?? getTextExtractor(),
     structured: overrides.structured ?? getStructuredExtractor(),
+    embedder: overrides.embedder ?? getEmbedder(),
+    reranker: overrides.reranker ?? getReranker(),
   };
 }

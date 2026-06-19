@@ -4,12 +4,9 @@ import {
   type OutreachDraft,
 } from "@/lib/domain";
 import { fixtures } from "@/server/fixtures";
+import { runFindRoles } from "@/lib/matching/pipeline";
 import type { ServiceDeps } from "./deps";
 import type { EnvoyServices } from "./types";
-
-function asStringArray(value: unknown): string[] {
-  return Array.isArray(value) ? value.filter((x): x is string => typeof x === "string") : [];
-}
 
 function summarize(structured: {
   headline: string;
@@ -61,17 +58,12 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
       return { profileId: profile.id, summary };
     },
 
-    async findRoles({ profileId, limit }) {
-      const matches = await repositories.matches.listByProfile(profileId);
-      const mapped = matches
-        .filter((m) => m.status !== "dismissed")
-        .map((m) => ({
-          jobId: m.jobId,
-          score: m.score,
-          reasoning: m.reasoning,
-          gaps: asStringArray(m.gaps),
-        }));
-      return { matches: typeof limit === "number" ? mapped.slice(0, limit) : mapped };
+    async findRoles({ profileId, query, filters, limit }) {
+      const matches = await runFindRoles(
+        { repositories, embedder: deps.embedder, reranker: deps.reranker },
+        { profileId, query, filters, limit },
+      );
+      return { matches };
     },
 
     async tailorResume({ profileId, jobId }) {

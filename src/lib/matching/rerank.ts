@@ -65,22 +65,27 @@ export class MockReranker implements Reranker {
 
       const normalizedSim = span > 0 ? (candidate.similarity - min) / span : 0.5;
       const overlap = profileSkills.filter((s) => jobText.includes(s));
-      const overlapRatio = profileSkills.length > 0 ? overlap.length / profileSkills.length : 0;
+      // 4+ overlapping skills reads as a full skill match.
+      const skillScore = Math.min(1, overlap.length / 4);
 
       const titles = [input.structured.headline, ...input.preferences.titles].map((t) =>
         t.toLowerCase(),
       );
       const titleMatch = titles.some((t) => t && job.title.toLowerCase().includes(t)) ? 1 : 0;
 
-      const score = round2(clamp01(0.4 * normalizedSim + 0.45 * overlapRatio + 0.15 * titleMatch));
+      // Surfaced roles sit in a realistic 45–100 band; strong fits reach the 90s.
+      const score = round2(
+        clamp01(0.45 + 0.3 * skillScore + 0.15 * titleMatch + 0.1 * normalizedSim),
+      );
 
       // reasoning
       const topOverlap = overlap.slice(0, 2).join(" and ");
+      const where = candidate.companyName ?? "this team";
       const parts: string[] = [];
       if (topOverlap) {
-        parts.push(`Your ${topOverlap} experience maps directly onto this ${job.title}.`);
+        parts.push(`Your ${topOverlap} experience maps directly onto ${where}'s ${job.title} role.`);
       } else {
-        parts.push(`This ${job.title} is adjacent to your background.`);
+        parts.push(`${where}'s ${job.title} is adjacent to your background.`);
       }
       if (titleMatch) parts.push("The title lines up with what you're targeting.");
       if (job.remote && input.preferences.remote) {
