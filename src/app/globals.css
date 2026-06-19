@@ -311,3 +311,32 @@
     padding-top: 26px;
   }
 }
+
+/* ============================================================
+   Marketing — hero
+   ============================================================ */
+@layer components {
+  .hero {
+    text-align: center;
+    padding-top: clamp(40px, 7vw, 76px);
+    padding-bottom: clamp(40px, 6vw, 60px);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: var(--fs-hero);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 22px auto 0;
+    max-width: 15ch;
+  }
+  .hero__sub {
+    max-width: 600px;
+    margin: 22px auto 0;
+    color: var(--ink-soft);
+    font-size: clamp(16px, 1.6vw, 19px);
+  }
+  .hero__cta {
+    margin-top: 30px;
+  }
+}
