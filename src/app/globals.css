@@ -2621,3 +2621,34 @@
     line-height: 1.5;
   }
 }
+
+/* ============================================================
+   A11y — global focus-visible + skip link
+   ============================================================ */
+@layer base {
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--ink);
+  color: var(--cream);
+  padding: 10px 16px;
+  border-radius: 0 0 10px 0;
+  font-size: 14px;
+}
+.skip-link:focus {
+  left: 0;
+}

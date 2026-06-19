@@ -12,7 +12,7 @@ import { Reveal } from "@/components/marketing/reveal";
 
 export default function HomePage() {
   return (
-    <main>
+    <main id="main">
       <Hero>
         <AppPreview />
       </Hero>

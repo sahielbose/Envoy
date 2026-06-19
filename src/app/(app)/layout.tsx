@@ -15,11 +15,16 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <SessionProvider session={session}>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <div className="app">
         <Sidebar />
         <div className="app__main">
           <TopBar />
-          <div className="app__content">{children}</div>
+          <main id="main" className="app__content">
+            {children}
+          </main>
         </div>
       </div>
     </SessionProvider>
