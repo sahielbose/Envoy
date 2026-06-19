@@ -1,5 +1,3 @@
-import { useMocks } from "@/lib/env";
-
 export interface SessionUser {
   id: string;
   name: string;
@@ -40,6 +38,6 @@ function getAuthAdapter(): AuthAdapter {
 
 /** Resolve the current session. Mock-first returns a fixed demo user. */
 export async function getSession(): Promise<Session | null> {
-  void useMocks("auth");
+  // Phase 20: when !shouldMock("auth"), delegate to the real Auth.js adapter.
   return getAuthAdapter().getSession();
 }

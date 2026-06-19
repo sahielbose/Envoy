@@ -82,8 +82,9 @@ export type MockableProvider =
 /**
  * Whether to use the mock implementation for a given provider. The master
  * USE_MOCKS flag applies unless a per-provider MOCK_<PROVIDER> override is set.
+ * (Named `shouldMock`, not `useMocks`, so it is never mistaken for a React hook.)
  */
-export function useMocks(provider?: MockableProvider): boolean {
+export function shouldMock(provider?: MockableProvider): boolean {
   if (provider) {
     const override = process.env[`MOCK_${provider.toUpperCase()}`];
     if (override !== undefined && override !== "") {
