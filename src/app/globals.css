@@ -2377,3 +2377,53 @@
     margin-top: 1px;
   }
 }
+
+/* ============================================================
+   App — research dossier
+   ============================================================ */
+@layer components {
+  .dossier {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .dossier .card h3 {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 550;
+    margin: 0 0 6px;
+  }
+  .dossier ul {
+    margin: 6px 0 0;
+    padding-left: 18px;
+  }
+  .dossier li {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin-top: 5px;
+  }
+  .people {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-top: 8px;
+  }
+  .person b {
+    font-size: 13.5px;
+  }
+  .person small {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-left: 6px;
+  }
+  .sources a {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 5px;
+    word-break: break-all;
+  }
+  .sources a:hover {
+    color: var(--ink);
+  }
+}
