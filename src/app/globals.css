@@ -886,3 +886,93 @@
     background: #fff;
   }
 }
+
+/* ============================================================
+   Marketing — process tabs
+   ============================================================ */
+@layer components {
+  .proc__head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .proc__head h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(30px, 4.4vw, 50px);
+    margin: 16px 0 0;
+    letter-spacing: -0.02em;
+  }
+  .proc__head p {
+    color: var(--ink-soft);
+    margin: 16px auto 0;
+    max-width: 520px;
+  }
+  .proc__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+    margin-top: clamp(40px, 6vw, 64px);
+  }
+  .proc__list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .proc__item {
+    position: relative;
+    text-align: left;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 18px 22px;
+    border-radius: 16px;
+    transition: background 0.25s;
+    color: var(--ink-faint);
+  }
+  .proc__item .w {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.4vw, 40px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    transition: color 0.25s;
+  }
+  .proc__item .num {
+    font-size: 13px;
+    vertical-align: super;
+    margin-left: 8px;
+    font-family: var(--sans);
+    color: var(--ink-faint);
+  }
+  .proc__item:hover .w {
+    color: var(--ink-soft);
+  }
+  .proc__item.is-active {
+    background: rgba(43, 33, 23, 0.045);
+  }
+  .proc__item.is-active .w {
+    color: var(--ink);
+  }
+  .proc__item:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .proc__media {
+    position: relative;
+  }
+  .art-cap {
+    margin-top: 20px;
+  }
+  .art-cap h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .art-cap p {
+    margin: 7px 0 0;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+}
