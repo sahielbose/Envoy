@@ -94,3 +94,30 @@ export function shouldMock(provider?: MockableProvider): boolean {
   }
   return env.USE_MOCKS;
 }
+
+/** Env keys each provider's real (Phase 20) adapter requires. */
+const REQUIRED_KEYS: Partial<Record<MockableProvider, (keyof Env)[]>> = {
+  db: ["DATABASE_URL"],
+  llm: ["ANTHROPIC_API_KEY"],
+  embeddings: ["VOYAGE_API_KEY"],
+  search: ["EXA_API_KEY"],
+  auth: ["GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "NEXTAUTH_SECRET"],
+  storage: ["R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET"],
+  email: ["RESEND_API_KEY"],
+};
+
+/**
+ * Validate that a provider's required secrets are present when it is NOT mocked.
+ * Real adapters call this before constructing, so a misconfigured live provider
+ * fails loudly instead of silently misbehaving.
+ */
+export function requireProvider(provider: MockableProvider): void {
+  if (shouldMock(provider)) return;
+  const missing = (REQUIRED_KEYS[provider] ?? []).filter((k) => !env[k]);
+  if (missing.length > 0) {
+    throw new Error(
+      `Missing required env for "${provider}": ${missing.join(", ")}. ` +
+        `Set them, or keep MOCK_${provider.toUpperCase()}=true / USE_MOCKS=true.`,
+    );
+  }
+}
