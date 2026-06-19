@@ -17,9 +17,9 @@ export function getServices(): EnvoyServices {
   return cached;
 }
 
-/** Build a fresh service bundle over explicit deps (tests / per-request). */
-export function createServices(deps: ServiceDeps): EnvoyServices {
-  return createMockServices(deps);
+/** Build a fresh service bundle; missing deps fall back to mock defaults. */
+export function createServices(deps: Partial<ServiceDeps> = {}): EnvoyServices {
+  return createMockServices(createDeps(deps));
 }
 
 export function resetServices(): void {

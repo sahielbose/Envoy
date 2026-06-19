@@ -27,10 +27,21 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
   const { repositories } = deps;
 
   return {
-    async parseResume() {
-      const fixture = fixtures.profiles[0];
-      const structured = ProfileStructuredSchema.parse(fixture.structured);
-      return { rawText: fixture.rawResumeText ?? "", structured };
+    async parseResume({ fileId }) {
+      const stored = await deps.storage.get(fileId);
+      if (!stored) {
+        // Mock convenience: fall back to the demo profile if the file is absent.
+        const fixture = fixtures.profiles[0];
+        const structured = ProfileStructuredSchema.parse(fixture.structured);
+        return { rawText: fixture.rawResumeText ?? "", structured };
+      }
+      const rawText = await deps.extractor.extract({
+        bytes: stored.bytes,
+        contentType: stored.meta.contentType,
+        filename: stored.meta.filename,
+      });
+      const structured = await deps.structured.extract(rawText);
+      return { rawText, structured };
     },
 
     async buildProfile({ userId, structured, preferences }) {
