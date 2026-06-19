@@ -1864,3 +1864,50 @@
     margin-top: 8px;
   }
 }
+
+/* ============================================================
+   App — profile preview
+   ============================================================ */
+@layer components {
+  .ppv h3 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 550;
+  }
+  .ppv__headline {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 3px 0 0;
+  }
+  .ppv__section {
+    margin-top: 16px;
+  }
+  .ppv__label {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .ppv__exp {
+    border-top: 1px solid var(--line-2);
+    padding: 12px 0;
+  }
+  .ppv__exp:first-of-type {
+    border-top: 0;
+  }
+  .ppv__exp b {
+    font-size: 14px;
+    font-weight: 550;
+  }
+  .ppv__exp span {
+    color: var(--ink-faint);
+    font-size: 12.5px;
+  }
+  .ppv__exp li {
+    color: var(--ink-soft);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+}
