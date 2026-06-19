@@ -1,3 +1,4 @@
+import { env } from "@/lib/env";
 import { detectRemote, stripHtml } from "./normalize";
 import type { JobSource, NormalizedJob } from "./types";
 
@@ -129,5 +130,53 @@ export class AshbyLiveSource implements JobSource {
       }
     }
     return out;
+  }
+}
+
+const ADZUNA_COUNTRY = process.env.ADZUNA_COUNTRY ?? "us";
+
+/** Live Adzuna aggregate search (api.adzuna.com). */
+export class AdzunaLiveSource implements JobSource {
+  readonly source = "adzuna";
+
+  constructor() {
+    if (!env.ADZUNA_APP_ID || !env.ADZUNA_APP_KEY) {
+      throw new Error("Adzuna requires ADZUNA_APP_ID and ADZUNA_APP_KEY.");
+    }
+  }
+
+  async fetchJobs(): Promise<NormalizedJob[]> {
+    const query = process.env.ADZUNA_QUERY ?? "engineer";
+    const url =
+      `https://api.adzuna.com/v1/api/jobs/${ADZUNA_COUNTRY}/search/1` +
+      `?app_id=${env.ADZUNA_APP_ID}&app_key=${env.ADZUNA_APP_KEY}` +
+      `&results_per_page=20&what=${encodeURIComponent(query)}&content-type=application/json`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Adzuna failed: ${res.status} ${res.statusText}`);
+    const data = (await res.json()) as {
+      results: {
+        id: string;
+        title: string;
+        company?: { display_name?: string };
+        location?: { display_name?: string };
+        redirect_url: string;
+        description?: string;
+        created?: string;
+      }[];
+    };
+    return (data.results ?? []).map((r) => {
+      const loc = r.location?.display_name ?? null;
+      return {
+        source: this.source,
+        sourceJobId: r.id,
+        company: r.company?.display_name ?? "Unknown",
+        title: r.title,
+        location: loc,
+        remote: detectRemote(loc),
+        description: r.description ?? "",
+        url: r.redirect_url,
+        postedAt: r.created ? new Date(r.created) : null,
+      };
+    });
   }
 }
