@@ -103,3 +103,49 @@
     color: var(--ink-faint);
   }
 }
+
+/* ============================================================
+   Design system — buttons
+   ============================================================ */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    padding: 13px 22px;
+    border-radius: var(--btn-radius);
+    border: 1px solid var(--ink);
+    cursor: pointer;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      background 0.25s ease;
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px -12px rgba(43, 33, 23, 0.5);
+    background: #37291b;
+  }
+  .btn--ghost {
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 11px 18px;
+    font-size: 14px;
+  }
+  .btn--ghost:hover {
+    background: var(--surface-2);
+    box-shadow: none;
+    transform: none;
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+}
