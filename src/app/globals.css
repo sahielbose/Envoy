@@ -1802,3 +1802,65 @@
     }
   }
 }
+
+/* ============================================================
+   App — résumé upload / onboarding
+   ============================================================ */
+@layer components {
+  .dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    border: 1.5px dashed var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+    padding: 36px 24px;
+    cursor: pointer;
+    transition:
+      background 0.18s,
+      border-color 0.18s;
+  }
+  .dropzone:hover,
+  .dropzone.is-drag {
+    background: var(--surface-2);
+    border-color: var(--ink-faint);
+  }
+  .dropzone__icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    color: var(--ink-soft);
+  }
+  .dropzone b {
+    font-size: 15px;
+    font-weight: 550;
+  }
+  .dropzone small {
+    color: var(--ink-soft);
+    font-size: 12.5px;
+  }
+  .uploaded {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--line-2);
+    border-radius: 12px;
+    background: #fff;
+    padding: 12px 14px;
+  }
+  .uploaded small {
+    color: var(--ink-soft);
+    font-size: 12.5px;
+  }
+  .form-error {
+    color: #9a3b34;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+}
