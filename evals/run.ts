@@ -1,7 +1,8 @@
 import { smokeEval } from "./smoke";
+import { matchRelevanceEval } from "./match-relevance";
 import type { EvalSet } from "./types";
 
-const SETS: EvalSet[] = [smokeEval];
+const SETS: EvalSet[] = [smokeEval, matchRelevanceEval];
 
 async function main() {
   let allOk = true;
