@@ -35,15 +35,17 @@ function mailto(draft: OutreachDraftItem): string {
 function DraftCard({
   item,
   onRegenerate,
+  onApprove,
 }: {
   item: OutreachItem;
   onRegenerate: (jobId: string) => void;
+  onApprove: (id: string) => void;
 }) {
   const [toneIndex, setToneIndex] = useState(0);
   const [copied, setCopied] = useState(false);
   const draft = item.drafts[toneIndex] ?? item.drafts[0];
 
-  async function copy() {
+  async function approveAndCopy() {
     const text = `${draft.subject ? `Subject: ${draft.subject}\n\n` : ""}${draft.body}`;
     try {
       await navigator.clipboard.writeText(text);
@@ -52,6 +54,8 @@ function DraftCard({
     } catch {
       /* clipboard unavailable */
     }
+    // Record approval intent. This never sends.
+    onApprove(item.id);
   }
 
   return (
@@ -86,7 +90,7 @@ function DraftCard({
       ) : null}
       <div className="draft__body">{draft.body}</div>
       <div className="draft__actions">
-        <button type="button" className="btn" onClick={copy}>
+        <button type="button" className="btn" onClick={approveAndCopy}>
           {copied ? "Copied" : "Approve & copy"}
         </button>
         <a className="btn btn--ghost" href={mailto(draft)}>
@@ -126,6 +130,11 @@ export function OutreachQueue({
     }
   }
 
+  async function approve(id: string) {
+    await fetch(`/api/outreach/${id}/approve`, { method: "POST" });
+    router.refresh();
+  }
+
   return (
     <div style={{ maxWidth: 760 }}>
       {options.length > 0 ? (
@@ -158,7 +167,7 @@ export function OutreachQueue({
 
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         {items.map((item) => (
-          <DraftCard key={item.id} item={item} onRegenerate={draftFor} />
+          <DraftCard key={item.id} item={item} onRegenerate={draftFor} onApprove={approve} />
         ))}
       </div>
     </div>
