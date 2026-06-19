@@ -5,6 +5,7 @@ import {
 } from "@/lib/domain";
 import { fixtures } from "@/server/fixtures";
 import { runFindRoles } from "@/lib/matching/pipeline";
+import { generateTailored, putDoc } from "@/server/resume/tailor";
 import type { ServiceDeps } from "./deps";
 import type { EnvoyServices } from "./types";
 
@@ -69,29 +70,41 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
     async tailorResume({ profileId, jobId }) {
       const profile = await repositories.profiles.findById(profileId);
       const parsed = ProfileStructuredSchema.safeParse(profile?.structured);
-      const firstHighlight =
-        parsed.success && parsed.data.experience[0]?.highlights[0]
-          ? parsed.data.experience[0].highlights[0]
-          : "Built and shipped product features end to end.";
+      const structured = parsed.success
+        ? parsed.data
+        : ProfileStructuredSchema.parse(fixtures.profiles[0].structured);
+
+      const job = await repositories.jobs.findById(jobId);
+      const company = job?.companyId
+        ? ((await repositories.companies.findById(job.companyId))?.name ?? "the company")
+        : "the company";
+
+      const result = generateTailored({
+        structured,
+        summary: profile?.summary ?? "",
+        job: {
+          title: job?.title ?? "the role",
+          company,
+          description: job?.description ?? "",
+        },
+      });
+
+      const resumeDoc = putDoc({
+        kind: "resume",
+        title: `Résumé — ${job?.title ?? "role"}`,
+        text: result.resumeText,
+      });
+      const coverDoc = putDoc({
+        kind: "cover",
+        title: `Cover letter — ${job?.title ?? "role"}`,
+        text: result.coverText,
+      });
+
       return {
-        resumeDocId: `resume_${profileId}_${jobId}`,
-        coverLetterDocId: `cover_${profileId}_${jobId}`,
-        diffSummary:
-          "Re-emphasized your most relevant experience for this posting. Nothing was invented — every line traces to your base résumé.",
-        changes: [
-          {
-            section: "Summary",
-            before: parsed.success ? parsed.data.headline : "Engineer",
-            after: `${parsed.success ? parsed.data.headline : "Engineer"} — focused on the work this role needs most`,
-            source: parsed.success ? parsed.data.headline : "headline",
-          },
-          {
-            section: "Experience",
-            before: firstHighlight,
-            after: firstHighlight,
-            source: firstHighlight,
-          },
-        ],
+        resumeDocId: resumeDoc.id,
+        coverLetterDocId: coverDoc.id,
+        diffSummary: result.diffSummary,
+        changes: result.changes,
       };
     },
 
