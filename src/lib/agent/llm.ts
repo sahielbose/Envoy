@@ -1,3 +1,5 @@
+import { shouldMock } from "@/lib/env";
+import { AnthropicLLMProvider } from "./anthropic";
 import type { ToolSpec } from "./registry";
 
 export interface AgentMessage {
@@ -150,6 +152,8 @@ export class ScriptedMockProvider implements LLMProvider {
 let cached: LLMProvider | null = null;
 
 export function getLLMProvider(): LLMProvider {
-  if (!cached) cached = new ScriptedMockProvider();
+  if (!cached) {
+    cached = shouldMock("llm") ? new ScriptedMockProvider() : new AnthropicLLMProvider();
+  }
   return cached;
 }
