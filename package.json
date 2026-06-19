@@ -13,6 +13,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "eval": "tsx evals/run.ts",
+    "smoke": "tsx scripts/smoke.ts",
     "db:enable": "psql \"$DATABASE_URL\" -f prisma/sql/enable-pgvector.sql",
     "db:index": "psql \"$DATABASE_URL\" -f prisma/sql/index-vectors.sql",
     "db:push": "prisma db push",
