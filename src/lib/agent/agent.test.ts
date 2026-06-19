@@ -104,8 +104,9 @@ describe("guardrails", () => {
     expect(output.drafts.length).toBeGreaterThan(0);
     // Output is content only — no transmission fields.
     expect(Object.keys(output).sort()).toEqual(["drafts", "rationale"]);
-    // Nothing was sent: no outreach record exists for the user.
-    expect(await repositories.outreach.listByUser("demo-user")).toHaveLength(0);
+    // Nothing was sent: the draft may be recorded, but none has a "sent" status.
+    const records = await repositories.outreach.listByUser("demo-user");
+    expect(records.every((r) => r.status !== "sent")).toBe(true);
     expect(text(events).toLowerCase()).toContain("approve");
   });
 });

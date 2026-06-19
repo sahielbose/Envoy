@@ -2,6 +2,7 @@ import { z } from "zod";
 import { getSession } from "@/lib/auth/session";
 import { getRepositories } from "@/server/repositories";
 import { getEmailSender } from "@/server/email/sender";
+import { sendOutreach } from "@/server/email/send-outreach";
 
 export const runtime = "nodejs";
 
@@ -31,35 +32,13 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   }
 
   const { id } = await params;
-  const repos = getRepositories();
-  const record = await repos.outreach.findById(id);
-  if (!record || record.userId !== session.user.id) {
-    return Response.json({ error: "Not found." }, { status: 404 });
-  }
-
-  if (record.status !== "approved") {
-    return Response.json({ error: "Approve this draft before sending." }, { status: 403 });
-  }
-
-  const settings = await repos.settings.findByUserId(session.user.id);
-  if (!settings?.gmailConnected) {
-    return Response.json({ error: "Connect Gmail in settings to send." }, { status: 403 });
-  }
-
-  const drafts = Array.isArray(record.drafts) ? record.drafts : [];
-  const draft = drafts[parsed.data.draftIndex] as { subject?: string; body: string } | undefined;
-  if (!draft) return Response.json({ error: "Draft not found." }, { status: 400 });
-
-  const result = await getEmailSender().send({
+  const result = await sendOutreach(getRepositories(), getEmailSender(), {
+    userId: session.user.id,
+    outreachId: id,
+    draftIndex: parsed.data.draftIndex,
     to: parsed.data.to,
-    subject: draft.subject,
-    body: draft.body,
+    confirm: parsed.data.confirm,
   });
-  await repos.outreach.update(id, {
-    status: "sent",
-    sentVia: result.sentVia,
-    sentAt: result.sentAt,
-  });
-
+  if (!result.ok) return Response.json({ error: result.error }, { status: result.status });
   return Response.json({ id, status: "sent", sentVia: result.sentVia });
 }
