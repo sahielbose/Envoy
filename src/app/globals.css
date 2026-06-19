@@ -2652,3 +2652,17 @@
 .skip-link:focus {
   left: 0;
 }
+
+/* ============================================================
+   App — centered error / 404 state
+   ============================================================ */
+.center-state {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 40px 24px;
+}
+.center-state .muted {
+  margin: 8px 0 18px;
+}
