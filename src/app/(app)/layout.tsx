@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth/session";
 import { SessionProvider } from "@/components/app/session-provider";
 import { Sidebar } from "@/components/app/sidebar";
+import { TopBar } from "@/components/app/top-bar";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
@@ -17,6 +18,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <div className="app">
         <Sidebar />
         <div className="app__main">
+          <TopBar />
           <div className="app__content">{children}</div>
         </div>
       </div>
