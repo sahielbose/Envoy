@@ -64,10 +64,7 @@ export class ScriptedMockProvider implements LLMProvider {
     const user = [...req.messages].reverse().find((m) => m.role === "user")?.content ?? "";
     const t = user.toLowerCase();
 
-    if (/\b(find|role|match|job|opening|position|hiring)\b/.test(t)) {
-      return { toolCall: { name: "find_roles", input: { limit: 5 } } };
-    }
-    if (/\b(draft|outreach|intro|reach out|message|email|connect)\b/.test(t)) {
+    if (/\b(draft|outreach|intro|reach out|connect)\b/.test(t)) {
       return {
         toolCall: {
           name: "draft_outreach",
@@ -77,6 +74,9 @@ export class ScriptedMockProvider implements LLMProvider {
           },
         },
       };
+    }
+    if (/\b(find|role|match|job|opening|position)\b/.test(t)) {
+      return { toolCall: { name: "find_roles", input: { limit: 5 } } };
     }
     if (/\b(tailor|résumé|resume|cover letter)\b/.test(t)) {
       return { toolCall: { name: "tailor_resume", input: {} } };
