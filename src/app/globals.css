@@ -2281,3 +2281,99 @@
     font-size: 13.5px;
   }
 }
+
+/* ============================================================
+   App — résumé studio
+   ============================================================ */
+@layer components {
+  .studio__bar {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .studio__bar .field {
+    margin-bottom: 0;
+    min-width: 280px;
+  }
+  .diff {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .diff__row {
+    border: 1px solid var(--line-2);
+    border-radius: 12px;
+    background: #fff;
+    padding: 12px 14px;
+  }
+  .diff__sec {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .diff__before {
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: line-through;
+    text-decoration-color: var(--rose);
+  }
+  .diff__after {
+    font-size: 13px;
+    color: var(--ink);
+    margin-top: 4px;
+  }
+  .diff__same {
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .doc {
+    white-space: pre-wrap;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line-2);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    font-size: 13px;
+    padding: 7px 13px;
+    border-radius: 9px;
+    border: 1px solid var(--line-2);
+    background: var(--surface);
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .tab-btn.is-active {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+  .truthful-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: 12px;
+    padding: 11px 13px;
+    margin-bottom: 16px;
+  }
+  .truthful-note svg {
+    flex: 0 0 auto;
+    margin-top: 1px;
+  }
+}
