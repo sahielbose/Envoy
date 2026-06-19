@@ -22,6 +22,21 @@ interface TailorResponse {
 
 type Tab = "diff" | "resume" | "cover";
 
+function ExportButtons({ docId }: { docId: string }) {
+  const href = (format: string) =>
+    `/api/resume/export?docId=${encodeURIComponent(docId)}&format=${format}`;
+  return (
+    <div style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
+      <a className="btn btn--ghost" href={href("pdf")}>
+        Download PDF
+      </a>
+      <a className="btn btn--ghost" href={href("docx")}>
+        Download DOCX
+      </a>
+    </div>
+  );
+}
+
 function DiffView({ changes }: { changes: ResumeChange[] }) {
   return (
     <div className="diff">
@@ -117,8 +132,18 @@ export function ResumeStudio({ options }: { options: RoleOption[] }) {
             ))}
           </div>
           {tab === "diff" ? <DiffView changes={result.changes} /> : null}
-          {tab === "resume" ? <div className="doc">{result.resumeText}</div> : null}
-          {tab === "cover" ? <div className="doc">{result.coverText}</div> : null}
+          {tab === "resume" ? (
+            <>
+              <div className="doc">{result.resumeText}</div>
+              <ExportButtons docId={result.resumeDocId} />
+            </>
+          ) : null}
+          {tab === "cover" ? (
+            <>
+              <div className="doc">{result.coverText}</div>
+              <ExportButtons docId={result.coverLetterDocId} />
+            </>
+          ) : null}
         </>
       ) : null}
     </div>
