@@ -1389,3 +1389,144 @@
     max-width: 62ch;
   }
 }
+
+/* ============================================================
+   Marketing — logo strip, scroll reveal, responsive
+   ============================================================ */
+@layer components {
+  .logos {
+    padding: 34px 0 8px;
+  }
+  .logos__row {
+    display: flex;
+    align-items: center;
+    gap: clamp(20px, 4vw, 52px);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .logos__label {
+    font-size: 13px;
+    color: var(--ink-faint);
+    max-width: 180px;
+    line-height: 1.35;
+  }
+  .wm {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #9a8f7e;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    opacity: 0.78;
+  }
+  .wm svg {
+    width: 19px;
+    height: 19px;
+    fill: currentColor;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* responsive (unlayered so it reliably overrides component styles) */
+@media (max-width: 900px) {
+  .proc__grid,
+  .split,
+  .results__head,
+  .results__card,
+  .why__head {
+    grid-template-columns: 1fr;
+  }
+  .results__head p,
+  .why__head p {
+    justify-self: start;
+  }
+  .why__head h2 {
+    max-width: none;
+  }
+  .appwin__body {
+    grid-template-columns: 1fr;
+  }
+  .appnav {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line-2);
+    gap: 5px;
+  }
+  .appnav button {
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+  .appnav__tag {
+    display: none;
+  }
+  .board {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tiles {
+    grid-template-columns: 1fr;
+  }
+  .quote-card blockquote {
+    font-size: 24px;
+  }
+  .results__card {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  body {
+    font-size: 16px;
+  }
+  .nav__inner {
+    grid-template-columns: auto 1fr;
+    height: 60px;
+  }
+  .nav__logo {
+    grid-column: 1;
+    justify-self: start;
+    font-size: 22px;
+  }
+  .nav__right {
+    grid-column: 2;
+  }
+  .nav__right .btn--ghost {
+    display: none;
+  }
+  .stats,
+  .results__card {
+    grid-template-columns: 1fr;
+  }
+  .board {
+    grid-template-columns: 1fr;
+  }
+  .proc__media .art {
+    aspect-ratio: 3 / 2;
+  }
+  .hero h1 {
+    font-size: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
