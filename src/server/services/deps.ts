@@ -10,6 +10,8 @@ import { getEmbedder } from "@/lib/matching/embeddings";
 import type { Embedder } from "@/lib/matching/embeddings";
 import { getReranker } from "@/lib/matching/rerank";
 import type { Reranker } from "@/lib/matching/rerank";
+import { getWebSearch } from "@/lib/search";
+import type { WebSearch } from "@/lib/search";
 
 /**
  * Dependency container for the services. Holds the data source, résumé pipeline,
@@ -23,6 +25,7 @@ export interface ServiceDeps {
   structured: StructuredExtractor;
   embedder: Embedder;
   reranker: Reranker;
+  search: WebSearch;
 }
 
 export function createDeps(overrides: Partial<ServiceDeps> = {}): ServiceDeps {
@@ -33,5 +36,6 @@ export function createDeps(overrides: Partial<ServiceDeps> = {}): ServiceDeps {
     structured: overrides.structured ?? getStructuredExtractor(),
     embedder: overrides.embedder ?? getEmbedder(),
     reranker: overrides.reranker ?? getReranker(),
+    search: overrides.search ?? getWebSearch(),
   };
 }

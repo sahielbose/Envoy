@@ -1,11 +1,8 @@
-import {
-  ProfileStructuredSchema,
-  type Dossier,
-  type OutreachDraft,
-} from "@/lib/domain";
+import { ProfileStructuredSchema, type OutreachDraft } from "@/lib/domain";
 import { fixtures } from "@/server/fixtures";
 import { runFindRoles } from "@/lib/matching/pipeline";
 import { generateTailored, putDoc, verifyTruthful } from "@/server/resume/tailor";
+import { buildDossier, likelyQuestions, questionsToAsk } from "@/server/research/dossier";
 import type { ServiceDeps } from "./deps";
 import type { EnvoyServices } from "./types";
 
@@ -111,34 +108,18 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
       };
     },
 
-    async researchCompany({ company }) {
-      const dossier: Dossier = {
-        company,
-        overview: `${company} is a venture-backed startup. This dossier is assembled from public web sources only.`,
-        signals: [
-          `${company} recently announced a new product initiative (public blog).`,
-          `${company} is hiring across engineering and design (public careers page).`,
-        ],
-        product: `${company}'s product centers on a customer-facing platform.`,
-        culture: "Small, fast-moving, remote-friendly team that values ownership.",
-        people: [
-          { role: "Engineering Manager", archetype: "hiring manager", focus: "frontend platform" },
-          { role: "Founder / CEO", archetype: "decision maker", focus: "vision and roadmap" },
-        ],
-      };
+    async researchCompany({ company, jobId }) {
+      const results = await deps.search.search(
+        `${company} company news funding product culture`,
+        { limit: 5 },
+      );
+      const job = jobId ? await repositories.jobs.findById(jobId) : null;
+      const dossier = buildDossier(company, results, job);
       return {
         dossier,
-        likelyQuestions: [
-          "Walk me through a design system you've built and the trade-offs you made.",
-          "How do you approach accessibility in a fast-moving product?",
-          "Tell me about a time you shipped something 0→1.",
-        ],
-        questionsToAsk: [
-          "What does the first 90 days look like for this role?",
-          "How does the team balance velocity with quality?",
-          "Where is the product headed over the next year?",
-        ],
-        sources: [{ title: `${company} — Careers`, url: `https://example.com/${encodeURIComponent(company)}/careers` }],
+        likelyQuestions: likelyQuestions(job),
+        questionsToAsk: questionsToAsk(company),
+        sources: results.map((r) => ({ title: r.title, url: r.url })),
       };
     },
 
