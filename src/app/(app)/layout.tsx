@@ -1,12 +1,25 @@
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth/session";
+import { SessionProvider } from "@/components/app/session-provider";
 import { Sidebar } from "@/components/app/sidebar";
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default async function AppLayout({ children }: { children: React.ReactNode }) {
+  const session = await getSession();
+
+  // Mock-first: getSession always returns a demo user. The gate is real for the
+  // Phase 20 Auth.js adapter, which returns null for signed-out visitors.
+  if (!session) {
+    redirect("/");
+  }
+
   return (
-    <div className="app">
-      <Sidebar />
-      <div className="app__main">
-        <div className="app__content">{children}</div>
+    <SessionProvider session={session}>
+      <div className="app">
+        <Sidebar />
+        <div className="app__main">
+          <div className="app__content">{children}</div>
+        </div>
       </div>
-    </div>
+    </SessionProvider>
   );
 }
