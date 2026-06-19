@@ -13,11 +13,11 @@ npm run dev                 # http://localhost:3000
 Optional local database (needed once you run real matching/persistence, Phase 5+):
 ```bash
 docker compose up -d        # Postgres + pgvector
-npm run db:push && npm run db:seed
+npm run db:setup            # enable pgvector → db push → index vectors → seed
 ```
 
 ## Scripts
-`dev` · `build` · `start` · `lint` · `typecheck` · `test` · `test:e2e` · `eval` · `db:push` · `db:seed` · `db:studio` · `format`
+`dev` · `build` · `start` · `lint` · `typecheck` · `test` · `test:e2e` · `eval` · `db:setup` · `db:push` · `db:seed` · `db:studio` · `format`
 
 ## Mock-first
 The app runs end to end with `USE_MOCKS=true` and **zero secrets**. Every external service (LLM, embeddings, web search, job boards, auth, storage, email, cron) sits behind an interface with a mock. Real API keys are wired only in the final build phase. See `ENVOY_GUARDRAILS.md`.

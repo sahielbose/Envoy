@@ -13,8 +13,11 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "eval": "tsx evals/run.ts",
+    "db:enable": "psql \"$DATABASE_URL\" -f prisma/sql/enable-pgvector.sql",
+    "db:index": "psql \"$DATABASE_URL\" -f prisma/sql/index-vectors.sql",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
+    "db:setup": "npm run db:enable && npm run db:push && npm run db:index && npm run db:seed",
     "db:studio": "prisma studio",
     "format": "prettier --write .",
     "postinstall": "prisma generate"

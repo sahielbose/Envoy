@@ -1,0 +1,17 @@
+# Local Postgres with pgvector for Envoy.
+# Mock mode (USE_MOCKS=true) does not require this; it's used once you
+# run real matching/persistence locally (Phase 5 onward).
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: envoy-db
+    environment:
+      POSTGRES_USER: envoy
+      POSTGRES_PASSWORD: envoy
+      POSTGRES_DB: envoy
+    ports:
+      - "5432:5432"
+    volumes:
+      - envoy-db-data:/var/lib/postgresql/data
+volumes:
+  envoy-db-data:
