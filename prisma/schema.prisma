@@ -1,0 +1,122 @@
+// Envoy data model — see docs/ENVOY_CONTEXT.md §"Data model".
+// Enable pgvector in a migration: CREATE EXTENSION IF NOT EXISTS vector;
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String            @id @default(cuid())
+  email        String            @unique
+  name         String?
+  createdAt    DateTime          @default(now())
+  profile      CandidateProfile?
+  applications Application[]
+  outreach     Outreach[]
+  settings     Settings?
+}
+
+model CandidateProfile {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id])
+  linkedinUrl   String?
+  baseResumeId  String?
+  rawResumeText String?  @db.Text
+  structured    Json
+  preferences   Json
+  embedding     Unsupported("vector(1024)")?
+  summary       String?  @db.Text
+  updatedAt     DateTime @updatedAt
+}
+
+model ResumeFile {
+  id         String   @id @default(cuid())
+  userId     String
+  storageKey String
+  kind       String // base | tailored
+  jobId      String?
+  format     String // pdf | docx
+  createdAt  DateTime @default(now())
+}
+
+model Company {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  domain    String?
+  dossier   Json?
+  dossierAt DateTime?
+  jobs      Job[]
+}
+
+model Job {
+  id          String   @id @default(cuid())
+  source      String // greenhouse | lever | ashby | adzuna
+  sourceJobId String
+  companyId   String?
+  company     Company? @relation(fields: [companyId], references: [id])
+  title       String
+  location    String?
+  remote      Boolean  @default(false)
+  description String   @db.Text
+  url         String
+  postedAt    DateTime?
+  embedding   Unsupported("vector(1024)")?
+  ingestedAt  DateTime @default(now())
+
+  @@unique([source, sourceJobId])
+}
+
+model Match {
+  id        String   @id @default(cuid())
+  profileId String
+  jobId     String
+  score     Float
+  reasoning String   @db.Text
+  gaps      Json
+  status    String   @default("new") // new | saved | dismissed | tracked
+  createdAt DateTime @default(now())
+
+  @@unique([profileId, jobId])
+}
+
+model Application {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  jobId        String
+  stage        String   @default("saved") // saved|researching|outreach_sent|applied|interviewing|offer|closed
+  notes        String?  @db.Text
+  nextAction   Json?
+  resumeFileId String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Outreach {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  jobId     String
+  target    Json
+  channel   String // email | linkedin | other
+  drafts    Json
+  status    String    @default("draft") // draft | approved | sent | archived
+  sentVia   String?
+  sentAt    DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model Settings {
+  userId          String  @id
+  user            User    @relation(fields: [userId], references: [id])
+  notifyEmail     Boolean @default(true)
+  cronMatchWeekly Boolean @default(true)
+  cronFollowups   Boolean @default(true)
+  gmailConnected  Boolean @default(false)
+}
