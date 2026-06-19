@@ -5,6 +5,13 @@ import type { LucideIcon } from "lucide-react";
 import { List, MessageSquare, Mail, Columns3, User, Lock } from "lucide-react";
 import { Icon } from "@/components/ui";
 import { cn } from "@/lib/utils";
+import {
+  MatchesPanel,
+  ChatPanel,
+  OutreachPanel,
+  TrackerPanel,
+  ProfilePanel,
+} from "./preview-panels";
 
 export type PreviewView = "matches" | "chat" | "outreach" | "tracker" | "profile";
 
@@ -16,13 +23,21 @@ const NAV: { id: PreviewView; label: string; icon: LucideIcon }[] = [
   { id: "profile", label: "Profile", icon: User },
 ];
 
+const PANELS: Record<PreviewView, () => React.ReactElement> = {
+  matches: MatchesPanel,
+  chat: ChatPanel,
+  outreach: OutreachPanel,
+  tracker: TrackerPanel,
+  profile: ProfilePanel,
+};
+
 /**
  * Stubbed, clickable product window that replaces the marketing video. The
  * sidebar switches the main panel. All data is fictional ("Demo data").
  */
 export function AppPreview() {
   const [view, setView] = useState<PreviewView>("matches");
-  const active = NAV.find((n) => n.id === view);
+  const Panel = PANELS[view];
 
   return (
     <div className="appwrap">
@@ -58,12 +73,7 @@ export function AppPreview() {
             <span className="appnav__tag">Demo data</span>
           </nav>
           <div className="appmain">
-            <section className="panel" role="tabpanel" aria-label={active?.label}>
-              <div className="panel__head">
-                <span className="panel__title">{active?.label}</span>
-                <span className="panel__meta">demo</span>
-              </div>
-            </section>
+            <Panel />
           </div>
         </div>
       </div>
