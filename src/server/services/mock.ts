@@ -11,10 +11,16 @@ function asStringArray(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((x): x is string => typeof x === "string") : [];
 }
 
-function summarize(headline: string, years: number | undefined, skills: string[]): string {
-  const yrs = years ? ` with ${years} years of experience` : "";
-  const top = skills.slice(0, 3).join(", ");
-  return `${headline}${yrs}${top ? `; strongest in ${top}.` : "."}`;
+function summarize(structured: {
+  headline: string;
+  yearsExperience?: number;
+  skills: string[];
+  location?: string;
+}): string {
+  const yrs = structured.yearsExperience ? `${structured.yearsExperience}-year ` : "";
+  const top = structured.skills.slice(0, 3).join(", ");
+  const where = structured.location ? ` Open to ${structured.location}.` : "";
+  return `${yrs}${structured.headline}${top ? ` — strongest in ${top}` : ""}.${where}`.trim();
 }
 
 /**
@@ -45,7 +51,7 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
     },
 
     async buildProfile({ userId, structured, preferences }) {
-      const summary = summarize(structured.headline, structured.yearsExperience, structured.skills);
+      const summary = summarize(structured);
       const profile = await repositories.profiles.upsert({
         userId,
         structured,

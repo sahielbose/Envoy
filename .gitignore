@@ -6,7 +6,7 @@ node_modules
 # next
 .next
 out
-build
+/build
 
 # env & secrets
 .env
