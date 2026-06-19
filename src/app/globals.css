@@ -2513,3 +2513,64 @@
     white-space: nowrap;
   }
 }
+
+/* ============================================================
+   App — tracker card editor
+   ============================================================ */
+@layer components {
+  .tcard__edit {
+    margin-top: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .tcard__edit textarea,
+  .tcard__edit input {
+    font-size: 12px;
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    padding: 6px 7px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+    width: 100%;
+  }
+  .tcard__edit textarea {
+    resize: vertical;
+    min-height: 46px;
+  }
+  .tcard__row {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+  }
+  .tcard__btn {
+    font-size: 11.5px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--cream);
+    cursor: pointer;
+  }
+  .tcard__btn--ghost {
+    background: var(--surface);
+    color: var(--ink-soft);
+    border-color: var(--line-2);
+  }
+  .tcard__btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .tcard__link {
+    font-size: 11px;
+    color: var(--ink-faint);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    padding: 5px 0 0;
+    text-decoration: underline;
+  }
+}
