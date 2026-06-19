@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { Mail } from "lucide-react";
 import { PageHeader } from "@/components/app/page-header";
-import { Card } from "@/components/ui";
+import { EmptyState } from "@/components/app/empty-state";
 
 export const metadata: Metadata = { title: "Outreach — Envoy" };
 
@@ -11,11 +12,11 @@ export default function OutreachPage() {
         title="Outreach"
         subtitle="Warm, personal drafts — approved by you before anything sends."
       />
-      <Card>
-        <p className="muted" style={{ margin: 0, fontSize: 14 }}>
-          Drafts await your review here. Envoy never sends without your approval.
-        </p>
-      </Card>
+      <EmptyState
+        icon={Mail}
+        title="No drafts to review"
+        description="Drafts await your review here. Envoy never sends anything without your explicit approval."
+      />
     </>
   );
 }

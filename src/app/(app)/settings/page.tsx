@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { Settings } from "lucide-react";
 import { PageHeader } from "@/components/app/page-header";
-import { Card } from "@/components/ui";
+import { EmptyState } from "@/components/app/empty-state";
 
 export const metadata: Metadata = { title: "Settings — Envoy" };
 
@@ -8,11 +9,11 @@ export default function SettingsPage() {
   return (
     <>
       <PageHeader title="Settings" subtitle="Preferences, notifications, and integrations." />
-      <Card>
-        <p className="muted" style={{ margin: 0, fontSize: 14 }}>
-          Notification and integration settings arrive in a later phase.
-        </p>
-      </Card>
+      <EmptyState
+        icon={Settings}
+        title="Nothing to configure yet"
+        description="Notification preferences and optional integrations arrive in a later phase."
+      />
     </>
   );
 }

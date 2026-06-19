@@ -1744,3 +1744,61 @@
     font-weight: 600;
   }
 }
+
+/* ============================================================
+   App — empty state + loading skeleton
+   ============================================================ */
+@layer components {
+  .empty {
+    border: 1px dashed var(--line);
+    border-radius: 18px;
+    background: var(--surface);
+    padding: 48px 28px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .empty__icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .empty__title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 550;
+    margin: 0;
+  }
+  .empty__desc {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0;
+    max-width: 44ch;
+  }
+  .empty__action {
+    margin-top: 14px;
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--surface), var(--surface-2), var(--surface));
+    background-size: 200% 100%;
+    border-radius: 10px;
+    animation: skeleton 1.4s ease-in-out infinite;
+  }
+  @keyframes skeleton {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+}
