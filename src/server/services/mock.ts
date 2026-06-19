@@ -138,17 +138,26 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
       return output;
     },
 
-    async mapContacts() {
+    async mapContacts({ jobId }) {
       // Roles/archetypes to reach + rationale only. No contact-info scraping;
       // named people would be publicly-listed only.
+      const job = await repositories.jobs.findById(jobId);
+      const title = job?.title ?? "the role";
+      const manager = /(engineer|developer)/i.test(title)
+        ? "Engineering Manager"
+        : /design/i.test(title)
+          ? "Design Manager"
+          : /product|pm/i.test(title)
+            ? "Head of Product"
+            : "the team lead";
       return {
         targets: [
           {
-            archetype: "Hiring manager (Engineering Manager)",
+            archetype: `Hiring manager (likely the ${manager})`,
             rationale: "Owns the role and the hiring decision — the highest-leverage warm intro.",
           },
           {
-            archetype: "Future peer (Senior Engineer on the team)",
+            archetype: `Future peer (a senior person on the ${title} team)`,
             rationale: "Can speak to the day-to-day and refer you internally.",
           },
           {
