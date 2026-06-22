@@ -137,8 +137,42 @@ export function ChatPanel() {
 
 const TONES = ["Warm", "Direct", "Brief"] as const;
 
+const DRAFTS: Record<(typeof TONES)[number], { subject: string; body: string }> = {
+  Warm: {
+    subject: "Loved what Northwind is building",
+    body: "Hi Priya, I came across Northwind's new customer platform and it's the kind of problem I'd jump at. I've spent the last three years building React design systems, most recently shipping a component library used across a 40-person product org. Would you be open to a quick chat about the frontend role on your team? Happy to share a couple of things I'd dig into first.",
+  },
+  Direct: {
+    subject: "Frontend role on your team",
+    body: "Hi Priya, I'd like to be considered for the frontend role at Northwind. I've spent six years on React design systems and recently shipped a component library used across a 40-person product org. I think that maps closely to your new customer platform. Could we find 20 minutes this week?",
+  },
+  Brief: {
+    subject: "Quick intro, frontend role",
+    body: "Hi Priya, six years building React design systems, most recently a component library used across a 40-person org. Northwind's customer platform looks like exactly that kind of work. Open to a quick chat?",
+  },
+};
+
 export function OutreachPanel() {
   const [tone, setTone] = useState<(typeof TONES)[number]>("Warm");
+  const [copied, setCopied] = useState(false);
+  const draft = DRAFTS[tone];
+
+  async function approveAndCopy() {
+    try {
+      await navigator.clipboard.writeText(`Subject: ${draft.subject}\n\n${draft.body}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      /* clipboard unavailable in this context */
+    }
+  }
+
+  function regenerate() {
+    const next = TONES[(TONES.indexOf(tone) + 1) % TONES.length];
+    setTone(next);
+    setCopied(false);
+  }
+
   return (
     <section className="panel" role="tabpanel" aria-label="Outreach">
       <div className="panel__head">
@@ -153,7 +187,10 @@ export function OutreachPanel() {
                 key={t}
                 type="button"
                 className={cn("tone", tone === t && "is-active")}
-                onClick={() => setTone(t)}
+                onClick={() => {
+                  setTone(t);
+                  setCopied(false);
+                }}
               >
                 {t}
               </button>
@@ -165,20 +202,15 @@ export function OutreachPanel() {
           <span>To</span>Priya, Engineering Manager, Northwind
         </div>
         <div className="draft__field">
-          <span>Subject</span>Loved what Northwind is building
+          <span>Subject</span>
+          {draft.subject}
         </div>
-        <div className="draft__body">
-          Hi Priya, I came across Northwind&apos;s new customer platform and it&apos;s the kind of
-          problem I&apos;d jump at. I&apos;ve spent the last three years building React design
-          systems at scale, most recently shipping a component library used across a 40-person
-          product org. Would you be open to a quick chat about the frontend role on your team? Happy
-          to share a couple of things I&apos;d dig into first.
-        </div>
+        <div className="draft__body">{draft.body}</div>
         <div className="draft__actions">
-          <button type="button" className="btn">
-            Approve &amp; copy
+          <button type="button" className="btn" onClick={approveAndCopy}>
+            {copied ? "Copied to clipboard" : "Approve & copy"}
           </button>
-          <button type="button" className="btn btn--ghost">
+          <button type="button" className="btn btn--ghost" onClick={regenerate}>
             Regenerate
           </button>
         </div>

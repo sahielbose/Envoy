@@ -5,11 +5,27 @@ import { Card, Toggle } from "@/components/ui";
 
 /**
  * "Get discovered" presentation toggle. Off by default and revocable, the
- * share link only appears when explicitly enabled. This is a presentation tool,
- * not a marketplace (no auto-apply to the candidate).
+ * share link only appears when explicitly enabled. The link resolves to a real
+ * public profile page (/p/{handle}); this is a presentation tool, not a
+ * marketplace (no auto-apply to the candidate).
  */
 export function GetDiscovered({ handle }: { handle: string }) {
   const [on, setOn] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const path = `/p/${handle}`;
+  const display = `app.envoy.so/p/${handle}`;
+
+  async function copy() {
+    const url = typeof window !== "undefined" ? `${window.location.origin}${path}` : path;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
 
   return (
     <Card>
@@ -28,9 +44,17 @@ export function GetDiscovered({ handle }: { handle: string }) {
         <div style={{ marginTop: 14 }}>
           <div className="ppv__label">Your share link</div>
           <div className="uploaded">
-            <span style={{ flex: 1, fontSize: 13, color: "var(--ink-soft)" }}>
-              app.envoy.so/p/{handle}
-            </span>
+            <a
+              href={path}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ flex: 1, fontSize: 13, color: "var(--ink-soft)", overflow: "hidden", textOverflow: "ellipsis" }}
+            >
+              {display}
+            </a>
+            <button type="button" className="btn btn--ghost" onClick={copy}>
+              {copied ? "Copied" : "Copy link"}
+            </button>
             <button type="button" className="btn btn--ghost" onClick={() => setOn(false)}>
               Turn off
             </button>

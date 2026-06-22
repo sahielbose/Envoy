@@ -2463,6 +2463,118 @@
     font-size: 12.5px;
     line-height: 1.5;
   }
+  .acct {
+    position: relative;
+  }
+  .usermenu__panel {
+    position: absolute;
+    right: 0;
+    top: 46px;
+    width: 232px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 24px 60px -30px rgba(43, 33, 23, 0.55);
+    padding: 7px;
+    z-index: 60;
+  }
+  .usermenu__head {
+    padding: 8px 12px 10px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .usermenu__head b {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .usermenu__head span {
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .usermenu__item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--ink);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .usermenu__item:hover {
+    background: var(--bg);
+  }
+  .usermenu__item--danger {
+    color: var(--rose);
+  }
+  .pubprofile {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .pubprofile__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pubprofile__brand {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .pubprofile__open {
+    font-size: 12px;
+    color: var(--sage-ink, #4b6b5c);
+    background: var(--sage-bg, #e7efe9);
+    border: 1px solid var(--line);
+    padding: 5px 11px;
+    border-radius: 999px;
+  }
+  .pubprofile__card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .pubprofile__card h1 {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .pubprofile__card .prof p {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 4px 0 0;
+  }
+  .pubprofile__summary {
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .pubprofile__foot {
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    line-height: 1.5;
+  }
+  .pubprofile__foot a {
+    color: var(--ink-soft);
+  }
 }
 
 /* ============================================================

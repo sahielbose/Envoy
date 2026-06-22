@@ -3,6 +3,7 @@ import { User } from "lucide-react";
 import { getSession } from "@/lib/auth/session";
 import { getRepositories } from "@/server/repositories";
 import { PreferencesSchema, ProfileStructuredSchema } from "@/lib/domain";
+import { slugify } from "@/lib/utils";
 import { PageHeader } from "@/components/app/page-header";
 import { EmptyState } from "@/components/app/empty-state";
 import { GetDiscovered } from "@/components/app/get-discovered";
@@ -44,7 +45,7 @@ export default async function ProfilePage() {
 
   const structured = ProfileStructuredSchema.parse(profile.structured);
   const prefs = PreferencesSchema.parse(profile.preferences);
-  const handle = session?.user.email.split("@")[0] ?? "you";
+  const handle = slugify(structured.name);
 
   return (
     <>
