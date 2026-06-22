@@ -157,3 +157,8 @@ export function getLLMProvider(): LLMProvider {
   }
   return cached;
 }
+
+/** Drop the cached provider so the next call rebuilds it (e.g. after a key change). */
+export function resetLLMProvider(): void {
+  cached = null;
+}

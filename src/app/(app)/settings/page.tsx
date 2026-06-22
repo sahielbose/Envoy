@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth/session";
 import { getRepositories } from "@/server/repositories";
 import { PageHeader } from "@/components/app/page-header";
 import { SettingsForm, type SettingsState } from "@/components/app/settings-form";
+import { AnthropicKeyCard } from "@/components/app/anthropic-key-card";
 
 export const metadata: Metadata = { title: "Settings, Envoy" };
 
@@ -21,8 +22,11 @@ export default async function SettingsPage() {
 
   return (
     <>
-      <PageHeader title="Settings" subtitle="Notifications, reminders, and integrations." />
-      <SettingsForm initial={initial} />
+      <PageHeader title="Settings" subtitle="Connection, notifications, reminders, and integrations." />
+      <div style={{ maxWidth: 640, display: "flex", flexDirection: "column", gap: 16 }}>
+        <AnthropicKeyCard />
+        <SettingsForm initial={initial} />
+      </div>
     </>
   );
 }

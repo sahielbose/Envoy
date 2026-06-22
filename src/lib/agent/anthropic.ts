@@ -27,7 +27,8 @@ export class AnthropicLLMProvider implements LLMProvider {
 
   constructor() {
     requireProvider("llm");
-    const anthropic = createAnthropic({ apiKey: env.ANTHROPIC_API_KEY });
+    // Live read so a key added at runtime (Settings) is used without a restart.
+    const anthropic = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY ?? env.ANTHROPIC_API_KEY });
     this.model = anthropic(process.env.ANTHROPIC_MODEL ?? DEFAULT_MODEL);
   }
 

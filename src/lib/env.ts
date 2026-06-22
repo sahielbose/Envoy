@@ -113,7 +113,9 @@ const REQUIRED_KEYS: Partial<Record<MockableProvider, (keyof Env)[]>> = {
  */
 export function requireProvider(provider: MockableProvider): void {
   if (shouldMock(provider)) return;
-  const missing = (REQUIRED_KEYS[provider] ?? []).filter((k) => !env[k]);
+  // Read process.env live so keys added at runtime (e.g. via Settings) count
+  // without a restart, not just the snapshot parsed at import time.
+  const missing = (REQUIRED_KEYS[provider] ?? []).filter((k) => !(process.env[k] ?? env[k]));
   if (missing.length > 0) {
     throw new Error(
       `Missing required env for "${provider}": ${missing.join(", ")}. ` +
