@@ -59,7 +59,7 @@ export interface TailorResult {
   baseText: string;
 }
 
-function serializeBase(structured: ProfileStructured, summary: string): string {
+export function serializeBase(structured: ProfileStructured, summary: string): string {
   const exp = structured.experience
     .map((e) => `${e.title} ${e.company} ${e.start} ${e.end} ${e.highlights.join(" ")}`)
     .join(" ");
@@ -79,6 +79,10 @@ export function generateTailored(input: {
   structured: ProfileStructured;
   summary: string;
   job: JobContext;
+  /** When Claude is connected, the service passes LLM-written, guard-checked
+   * copy here; otherwise the deterministic copy below is used. */
+  summaryOverride?: string;
+  coverOverride?: string;
 }): TailorResult {
   const { structured, summary, job } = input;
   const jobText = `${job.title} ${job.description}`.toLowerCase();
@@ -96,12 +100,13 @@ export function generateTailored(input: {
   const tailoredSummary = focus.length
     ? `${baseSummary} Most relevant here: ${joinList(focus)}.`
     : baseSummary;
+  const finalSummary = input.summaryOverride ?? tailoredSummary;
 
   const resumeText = [
     structured.name,
     `${structured.headline}${structured.location ? ` · ${structured.location}` : ""}`,
     "",
-    tailoredSummary,
+    finalSummary,
     "",
     "SKILLS",
     reordered.join(" · "),
@@ -140,15 +145,16 @@ export function generateTailored(input: {
     ? `I'd value 20 minutes to show how that translates to what ${job.company} is building.`
     : "I'd value 20 minutes to show how that translates to your roadmap.";
 
-  const coverText = [salutation, "", opener, fitLine, closer, "", "Best,", structured.name]
+  const deterministicCover = [salutation, "", opener, fitLine, closer, "", "Best,", structured.name]
     .filter(Boolean)
     .join("\n\n");
+  const coverText = input.coverOverride ?? deterministicCover;
 
   const changes: ResumeChange[] = [
     {
       section: "Summary",
       before: baseSummary,
-      after: tailoredSummary,
+      after: finalSummary,
       source: baseSummary,
     },
     {

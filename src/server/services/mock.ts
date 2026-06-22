@@ -1,8 +1,10 @@
 import { ProfileStructuredSchema, type OutreachDraft } from "@/lib/domain";
 import { fixtures } from "@/server/fixtures";
+import { shouldMock } from "@/lib/env";
 import { runFindRoles } from "@/lib/matching/pipeline";
-import { generateTailored, putDoc, verifyTruthful } from "@/server/resume/tailor";
+import { generateTailored, putDoc, verifyTruthful, serializeBase } from "@/server/resume/tailor";
 import { buildDossier, likelyQuestions, questionsToAsk } from "@/server/research/dossier";
+import { llmTailor, llmOutreach, llmDossier } from "@/server/llm/generate";
 import { ResearchCompanyOutput } from "@/server/tools/contracts";
 import { assertNoContactInfo } from "@/server/policy/pii";
 import type { ServiceDeps } from "./deps";
@@ -77,16 +79,25 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
       const company = job?.companyId
         ? ((await repositories.companies.findById(job.companyId))?.name ?? "")
         : "";
+      const summary = profile?.summary ?? "";
+      const jobCtx = { title: job?.title ?? "the role", company, description: job?.description ?? "" };
 
-      const result = generateTailored({
-        structured,
-        summary: profile?.summary ?? "",
-        job: {
-          title: job?.title ?? "the role",
-          company,
-          description: job?.description ?? "",
-        },
-      });
+      // When Claude is connected, let it write the tailored summary + cover
+      // letter; the metric guard rejects any invented figure, falling back to the
+      // deterministic (truthful-by-construction) copy. The résumé body itself is
+      // always assembled from the candidate's real experience.
+      let overrides: { summaryOverride?: string; coverOverride?: string } = {};
+      if (!shouldMock("llm")) {
+        const llm = await llmTailor({
+          structured,
+          summary,
+          job: jobCtx,
+          baseText: serializeBase(structured, summary),
+        });
+        if (llm) overrides = { summaryOverride: llm.summary, coverOverride: llm.coverText };
+      }
+
+      const result = generateTailored({ structured, summary, job: jobCtx, ...overrides });
 
       // Truthfulness guard: drop any change that doesn't trace to the base.
       const verified = result.changes.filter((c) => verifyTruthful([c], result.baseText).ok);
@@ -123,12 +134,26 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
         { limit: 5 },
       );
       const job = jobId ? await repositories.jobs.findById(jobId) : null;
-      const output = {
-        dossier: buildDossier(company, results, job),
-        likelyQuestions: likelyQuestions(job),
-        questionsToAsk: questionsToAsk(company),
-        sources: results.map((r) => ({ title: r.title, url: r.url })),
-      };
+
+      // Claude writes the dossier from the public snippets when connected; the
+      // deterministic builder is the fallback. Either way the PII guard runs.
+      let llmOut: Awaited<ReturnType<typeof llmDossier>> = null;
+      if (!shouldMock("llm")) {
+        llmOut = await llmDossier({
+          company,
+          job: job ? { title: job.title, description: job.description } : null,
+          results,
+        });
+      }
+
+      const output = llmOut
+        ? { ...llmOut, sources: results.map((r) => ({ title: r.title, url: r.url })) }
+        : {
+            dossier: buildDossier(company, results, job),
+            likelyQuestions: likelyQuestions(job),
+            questionsToAsk: questionsToAsk(company),
+            sources: results.map((r) => ({ title: r.title, url: r.url })),
+          };
       assertNoContactInfo(output, "research_company");
 
       // Cache on the Company for next time.
@@ -179,7 +204,7 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
       const skill = parsed.success ? (parsed.data.skills[0] ?? "your stack") : "your stack";
       const withSubject = channel === "email";
 
-      const drafts: OutreachDraft[] = [
+      let drafts: OutreachDraft[] = [
         {
           tone: "warm",
           subject: withSubject ? "Loved what your team is building" : undefined,
@@ -196,6 +221,23 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
           body: `Hi, ${headline} here, strong in ${skill}. I'd love to be considered for your team. Open to a quick chat?`,
         },
       ];
+
+      // Claude personalizes the variants when connected; metric + PII guards in
+      // llmOutreach reject anything unsafe, falling back to the drafts above.
+      if (!shouldMock("llm") && parsed.success) {
+        const job = await repositories.jobs.findById(jobId);
+        const company = job?.companyId
+          ? ((await repositories.companies.findById(job.companyId))?.name ?? "")
+          : "";
+        const llm = await llmOutreach({
+          structured: parsed.data,
+          summary: profile?.summary ?? "",
+          job: { title: job?.title ?? "the role", company },
+          target,
+          channel,
+        });
+        if (llm) drafts = llm;
+      }
 
       // Persist as a draft for the outreach queue. DRAFT ONLY, this records
       // content for the user to review; it never transmits anything.
