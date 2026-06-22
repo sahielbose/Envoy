@@ -15,7 +15,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
         through referrals long before they&apos;re ever posted.
       </p>
       <div className="hero__cta">
-        <Button href="#">Get Started Now</Button>
+        <Button href="/onboarding">Get Started Now</Button>
       </div>
       {children}
     </section>

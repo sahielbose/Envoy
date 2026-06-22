@@ -7,10 +7,10 @@ export function Nav() {
       <div className="container nav__inner">
         <div className="nav__logo">Envoy</div>
         <nav className="nav__right" aria-label="Primary">
-          <Button variant="ghost" href="#">
+          <Button variant="ghost" href="/dashboard">
             Sign in
           </Button>
-          <Button href="#">Get Started</Button>
+          <Button href="/onboarding">Get Started</Button>
         </nav>
       </div>
     </header>
