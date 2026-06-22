@@ -1,4 +1,8 @@
 import type { ProfileStructured, ResumeChange } from "@/lib/domain";
+import { joinList } from "@/lib/utils";
+
+const capitalize = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
+const lower = (s: string) => (s ? s.charAt(0).toLowerCase() + s.slice(1) : s);
 
 export interface TailoredDoc {
   id: string;
@@ -85,7 +89,13 @@ export function generateTailored(input: {
   const reordered = [...relevant, ...rest];
 
   const baseSummary = summary || structured.headline;
-  const tailoredSummary = `${structured.headline} focused on the ${job.title} role at ${job.company}. ${baseSummary}`;
+  // Reframe, don't pad: keep the candidate's real summary and append a concrete,
+  // posting-relevant emphasis built from skills they actually have. No "focused
+  // on the {title} role at {company}" tautology.
+  const focus = relevant.slice(0, 3);
+  const tailoredSummary = focus.length
+    ? `${baseSummary} Most relevant here: ${joinList(focus)}.`
+    : baseSummary;
 
   const resumeText = [
     structured.name,
@@ -108,19 +118,29 @@ export function generateTailored(input: {
     .filter((line) => line !== undefined)
     .join("\n");
 
+  // Cover letter: lead with evidence, name the real overlap, close with a
+  // concrete ask. Every clause draws from the candidate's own profile, so it
+  // stays truthful and never reads like boilerplate.
   const topHighlight = structured.experience[0]?.highlights[0] ?? "";
-  const coverText = [
-    `Dear ${job.company} team,`,
-    "",
-    `I'm excited to apply for the ${job.title} role. I'm a ${structured.headline}${
-      structured.yearsExperience ? ` with ${structured.yearsExperience} years of experience` : ""
-    }, and my background lines up closely with what you're looking for.`,
-    topHighlight ? `Most recently, ${topHighlight.charAt(0).toLowerCase()}${topHighlight.slice(1)}` : "",
-    `My strengths in ${reordered.slice(0, 3).join(", ")} map directly onto this role. I'd welcome the chance to talk.`,
-    "",
-    "Best,",
-    structured.name,
-  ]
+  const firstCompany = structured.experience[0]?.company ?? "";
+  const matched = relevant.slice(0, 2);
+
+  const salutation = job.company ? `Dear ${job.company} team,` : "Dear hiring team,";
+
+  const opener = topHighlight
+    ? `${capitalize(topHighlight).replace(/\.$/, "")}. That's the kind of work your ${job.title} role centers on.`
+    : `I'm writing about your ${job.title} role, where my work as a ${lower(structured.headline)} maps closely to what you're building.`;
+
+  const years = structured.yearsExperience ? `${structured.yearsExperience} years` : "my career";
+  const fitLine = matched.length
+    ? `Over ${years} I've gone deep on ${joinList(matched)}${firstCompany ? ` at ${firstCompany}` : ""}, the stack your posting leads with.`
+    : `My background as a ${lower(structured.headline)} maps to the scope you've outlined.`;
+
+  const closer = job.company
+    ? `I'd value 20 minutes to show how that translates to what ${job.company} is building.`
+    : "I'd value 20 minutes to show how that translates to your roadmap.";
+
+  const coverText = [salutation, "", opener, fitLine, closer, "", "Best,", structured.name]
     .filter(Boolean)
     .join("\n\n");
 

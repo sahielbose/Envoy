@@ -75,8 +75,8 @@ export function createMockServices(deps: ServiceDeps): EnvoyServices {
 
       const job = await repositories.jobs.findById(jobId);
       const company = job?.companyId
-        ? ((await repositories.companies.findById(job.companyId))?.name ?? "the company")
-        : "the company";
+        ? ((await repositories.companies.findById(job.companyId))?.name ?? "")
+        : "";
 
       const result = generateTailored({
         structured,

@@ -27,7 +27,7 @@ export const profiles: CandidateProfile[] = [
     linkedinUrl: "https://www.linkedin.com/in/alex-rivera-demo",
     baseResumeId: null,
     rawResumeText:
-      "Alex Rivera, Senior Frontend Engineer. 6 years building React design systems at scale.",
+      "Alex Rivera, Senior Frontend Engineer. 6 years building React design systems, including a component library used across a 40-person product org.",
     structured: {
       name: "Alex Rivera",
       headline: "Senior Frontend Engineer",
@@ -75,7 +75,7 @@ export const profiles: CandidateProfile[] = [
       dealbreakers: ["On-site 5 days/week"],
     },
     summary:
-      "Senior frontend engineer with 6 years building React design systems at scale; strong on accessibility and 0 to 1 product.",
+      "Senior frontend engineer, 6 years building React design systems, including a component library adopted across a 40-person product org; strong on accessibility and 0 to 1 product.",
     updatedAt: d("2026-05-01T00:00:00.000Z"),
   },
 ];
@@ -215,7 +215,7 @@ export const matches: Match[] = [
     jobId: "job-drift-frontend",
     score: 0.8,
     reasoning:
-      "Accessibility-forward frontend role at Series A, squarely in your wheelhouse.",
+      "Accessibility-forward frontend role at Series A, a direct match for your accessibility focus and React design-systems work.",
     gaps: [],
     status: "new",
     createdAt: d("2026-05-21T00:00:00.000Z"),
